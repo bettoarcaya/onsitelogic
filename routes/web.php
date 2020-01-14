@@ -24,6 +24,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function(){
 
 Route::group(['prefix' => 'participants', 'middleware' => 'auth'], function () {
     Route::get('/', 'ParticipantController@getParticipants');
+    Route::get('types', 'ParticipantController@getParticipantTypes');
 });
 
 Auth::routes();

@@ -10,7 +10,8 @@
 													class="btn btn-light float-right"
 													href="javascript:void(0)"
 													data-toggle="modal"
-              						data-target="#parcipant-modal">
+              						data-target="#parcipant-modal"
+													@click="showForm">
 													Agregar
 											</a>
 									</div>
@@ -81,6 +82,7 @@
 		</div>
 
 		<participant-form-component
+			:modalTitle="modalTitle"
 		></participant-form-component>
 
 	</div>
@@ -104,12 +106,12 @@ export default {
 			return{
 				participantList: [],
 				pagInformation: {},
-				showParticipantForm: false,
+				modalTitle: '',
 			}
     },
     methods: {
 			showForm(){
-				
+				this.modalTitle = 'Participante'
 			}
     }
 }

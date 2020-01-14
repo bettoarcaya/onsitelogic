@@ -7,12 +7,21 @@
  */
 namespace App\Repositories;
 use App\Models\Participant;
+use App\Models\Type;
 use Illuminate\Support\Facades\DB;
 
 class ParticipantRepository
 {
     public function getAll(){
+
         $response = Participant::paginate(10);
+
+        return $response;
+    }
+
+    public function getAllTypes(){
+        
+        $response = Type::all();
 
         return $response;
     }

@@ -2053,6 +2053,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   beforeMount: function beforeMount() {
     var self = this;
@@ -2067,11 +2069,13 @@ __webpack_require__.r(__webpack_exports__);
     return {
       participantList: [],
       pagInformation: {},
-      showParticipantForm: false
+      modalTitle: ''
     };
   },
   methods: {
-    showForm: function showForm() {}
+    showForm: function showForm() {
+      this.modalTitle = 'Participante';
+    }
   }
 });
 
@@ -2118,11 +2122,56 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['showParticipantForm'],
+  props: ['modalTitle'],
+  beforeMount: function beforeMount() {
+    var self = this;
+    axios.get('/participants/types/').then(function (response) {
+      self.types = response.data.types;
+    })["catch"](function (error) {
+      console.log(error.response);
+    });
+  },
   data: function data() {
     return {
-      modalTitle: ''
+      types: []
     };
   },
   methods: {
@@ -37556,7 +37605,29 @@ var render = function() {
         _c("div", { staticClass: "row justify-content-center" }, [
           _c("div", { staticClass: "col-md-12" }, [
             _c("div", { staticClass: "card" }, [
-              _vm._m(0),
+              _c("div", { staticClass: "card-header bg-orange color-white" }, [
+                _c("h4", { staticClass: "float-left" }, [
+                  _vm._v("Lista de asistentes")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-light float-right",
+                    attrs: {
+                      href: "javascript:void(0)",
+                      "data-toggle": "modal",
+                      "data-target": "#parcipant-modal"
+                    },
+                    on: { click: _vm.showForm }
+                  },
+                  [
+                    _vm._v(
+                      "\n\t\t\t\t\t\t\t\t\t\t\t\t\tAgregar\n\t\t\t\t\t\t\t\t\t\t\t"
+                    )
+                  ]
+                )
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-body" }, [
                 _vm.participantList.length == 0
@@ -37570,7 +37641,7 @@ var render = function() {
                         "table",
                         { staticClass: "table table-hover table-striped" },
                         [
-                          _vm._m(1),
+                          _vm._m(0),
                           _vm._v(" "),
                           _c(
                             "tbody",
@@ -37596,33 +37667,14 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("participant-form-component")
+      _c("participant-form-component", {
+        attrs: { modalTitle: _vm.modalTitle }
+      })
     ],
     1
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header bg-orange color-white" }, [
-      _c("h4", { staticClass: "float-left" }, [_vm._v("Lista de asistentes")]),
-      _vm._v(" "),
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-light float-right",
-          attrs: {
-            href: "javascript:void(0)",
-            "data-toggle": "modal",
-            "data-target": "#parcipant-modal"
-          }
-        },
-        [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t\tAgregar\n\t\t\t\t\t\t\t\t\t\t\t")]
-      )
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -37695,8 +37747,8 @@ var render = function() {
                   }
                 },
                 [
-                  _c("div", { staticClass: "modal-header" }, [
-                    _c("h5", { staticClass: "modal-title vue-color" }, [
+                  _c("div", { staticClass: "modal-header bg-orange" }, [
+                    _c("h5", { staticClass: "modal-title color-white" }, [
                       _vm._v(_vm._s(_vm.modalTitle))
                     ]),
                     _vm._v(" "),
@@ -37718,9 +37770,48 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "modal-body" }),
+                  _c("div", { staticClass: "modal-body" }, [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "participant_type" } }, [
+                        _vm._v("Tipo")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          staticClass: "form-control custom-select",
+                          attrs: { id: "participant_type", name: "type" }
+                        },
+                        _vm._l(_vm.types, function(type) {
+                          return _c(
+                            "option",
+                            {
+                              key: type.id,
+                              domProps: {
+                                value: { id: type.id, name: type.type }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n\t\t\t\t\t\t\t\t\t\t\t" +
+                                  _vm._s(type.type) +
+                                  "\n\t\t\t\t\t\t\t\t\t\t"
+                              )
+                            ]
+                          )
+                        }),
+                        0
+                      )
+                    ])
+                  ]),
                   _vm._v(" "),
-                  _vm._m(0)
+                  _vm._m(3)
                 ]
               )
             ])
@@ -37731,6 +37822,69 @@ var render = function() {
   )
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "client_name" } }, [
+        _vm._v("Nombre "),
+        _c("span", { staticClass: "required-color" }, [_vm._v("*")])
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          type: "text",
+          id: "participant_name",
+          placeholder: "Nombre",
+          name: "name"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "client_name" } }, [
+        _vm._v("Apellido "),
+        _c("span", { staticClass: "required-color" }, [_vm._v("*")])
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          type: "text",
+          id: "participant_lastname",
+          placeholder: "Apellido",
+          name: "lastname"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "client_name" } }, [
+        _vm._v("Email "),
+        _c("span", { staticClass: "required-color" }, [_vm._v("*")])
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          type: "text",
+          id: "participant_email",
+          placeholder: "Email",
+          name: "email"
+        }
+      })
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
