@@ -18,7 +18,7 @@ Route::get('/', function () {
 
 
 Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function(){
-    Route::get('clients', 'ClientController@index')->name('clients');
+    Route::get('participants', 'ParticipantController@index')->name('participants');
     
 });
 
