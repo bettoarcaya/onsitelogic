@@ -2046,7 +2046,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  beforeMount: function beforeMount() {},
+  beforeMount: function beforeMount() {
+    var self = this;
+    axios.get('/participants/').then(function (response) {
+      self.participantList = response.data.participants.data;
+      self.pagInformation = response.data.participants;
+    })["catch"](function (error) {
+      console.log(error.response);
+    });
+  },
   data: function data() {
     return {
       participantList: [],

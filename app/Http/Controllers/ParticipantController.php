@@ -3,9 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Repositories\ParticipantRepository;
 
 class ParticipantController extends Controller
 {
+
+    protected $participant_repository;
+
+    public function __construct(
+        ParticipantRepository $participantRepository
+    ){
+        $this->participant_repository = $participantRepository;
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,6 +24,15 @@ class ParticipantController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function getParticipants(){
+
+        $participants = $this->participant_repository->getAll();
+        
+        $data = compact('participants');
+
+        return response()->json($data, 200);
     }
 
     /**

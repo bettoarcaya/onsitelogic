@@ -81,7 +81,15 @@
 <script>
 export default {
     beforeMount(){
-
+			let self = this;
+      axios.get('/participants/')
+						.then( response => {
+								self.participantList = response.data.participants.data;
+								self.pagInformation = response.data.participants;
+						})
+						.catch( error => {
+							console.log(error.response);
+						});
     },
     data(){
 			return{
