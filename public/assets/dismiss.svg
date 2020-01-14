@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>ic/44/dismiss</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M11.4141,10 L15.7071,5.707 C16.0981,5.316 16.0981,4.684 15.7071,4.293 C15.3161,3.902 14.6841,3.902 14.2931,4.293 L10.0001,8.586 L5.7071,4.293 C5.3161,3.902 4.6841,3.902 4.2931,4.293 C3.9021,4.684 3.9021,5.316 4.2931,5.707 L8.5861,10 L4.2931,14.293 C3.9021,14.684 3.9021,15.316 4.2931,15.707 C4.4881,15.902 4.7441,16 5.0001,16 C5.2561,16 5.5121,15.902 5.7071,15.707 L10.0001,11.414 L14.2931,15.707 C14.4881,15.902 14.7441,16 15.0001,16 C15.2561,16 15.5121,15.902 15.7071,15.707 C16.0981,15.316 16.0981,14.684 15.7071,14.293 L11.4141,10 Z" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons" transform="translate(-1228.000000, -92.000000)">
+            <g id="Banners-/-03-Resources-/-Dismiss" transform="translate(1212.000000, 76.000000)">
+                <g id="Polaris-icon/Minor/Mono/Cancel-Small" transform="translate(12.000000, 12.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="Icon" fill="#31373D" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <g id="Color/InkLighter" mask="url(#mask-2)"></g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
