@@ -39,7 +39,7 @@ class ParticipantController extends Controller
         
         $types = $this->participant_repository->getAllTypes();
         
-        $data = compact($types);
+        $data = compact('types');
 
         return response()->json($data, 200);
     }

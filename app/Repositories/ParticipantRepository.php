@@ -7,7 +7,7 @@
  */
 namespace App\Repositories;
 use App\Models\Participant;
-use App\Models\Type;
+use App\Models\UserType;
 use Illuminate\Support\Facades\DB;
 
 class ParticipantRepository
@@ -21,7 +21,7 @@ class ParticipantRepository
 
     public function getAllTypes(){
         
-        $response = Type::all();
+        $response = UserType::all();
 
         return $response;
     }
