@@ -29,9 +29,6 @@
 														<th>Cedula</th>
 														<th>ParticipantID</th>
 														<th>Asistencia</th>
-														<th>Direccion</th>
-														<th>Telefono</th>
-														<th>F / nacimiento</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -42,9 +39,6 @@
 														<td>{{participant.id_number}}</td>
 														<td>{{participant.participant_id}}</td>
 														<td>{{participant.assistance}}</td>
-														<td>{{participant.address}}</td>
-														<td>{{participant.phone}}</td>
-														<td>{{participant.born_date}}</td>
 														<!--<td width="10px">
 															<a
 																href="javascript:void(0)"

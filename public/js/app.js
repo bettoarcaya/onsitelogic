@@ -2043,12 +2043,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   beforeMount: function beforeMount() {
     var self = this;
@@ -40796,14 +40790,6 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("td", [
                                   _vm._v(_vm._s(participant.assistance))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(participant.address))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(participant.phone))]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _vm._v(_vm._s(participant.born_date))
                                 ])
                               ])
                             }),
@@ -40847,13 +40833,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("ParticipantID")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Asistencia")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Direccion")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Telefono")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("F / nacimiento")])
+        _c("th", [_vm._v("Asistencia")])
       ])
     ])
   }
