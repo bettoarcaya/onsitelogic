@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\Requests;
 use App\Repositories\ParticipantRepository;
+use App\Http\Requests\StoreParticipant;
+use Illuminate\Support\Str;
 
 class ParticipantController extends Controller
 {
@@ -60,9 +62,23 @@ class ParticipantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreParticipant $request)
     {
-        //
+
+        $data = [
+          'name' => $request->name,
+          'lastname' => $request->lastname,
+          'email' => $request->email,
+          'type' => $request->type['id'],
+          'assistance' => false,
+          'participant_id' => Str::random(12)
+        ];
+
+        $participant = $this->participant_repository->add($data);
+        
+        $response = compact($participant);
+
+        return response()->json($response, 200);
     }
 
     /**

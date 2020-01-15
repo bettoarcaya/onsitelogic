@@ -26,8 +26,8 @@
 														<th>Nombre</th>
 														<th>Apellido</th>
 														<th>Email</th>
-														<th colspan="2">
-														</th>
+														<th>ParticipantID</th>
+														<th>Asistencia</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -35,6 +35,8 @@
 														<td>{{participant.name}}</td>
 														<td>{{participant.lastname}}</td>
 														<td>{{participant.email}}</td>
+														<td>{{participant.participant_id}}</td>
+														<td>{{participant.assistance}}</td>
 														<!--<td width="10px">
 															<a
 																href="javascript:void(0)"
@@ -83,6 +85,8 @@
 
 		<participant-form-component
 			:modalTitle="modalTitle"
+			:participantId="participantId"
+			v-on:submit="submitParticipant($event)"
 		></participant-form-component>
 
 	</div>
@@ -107,11 +111,24 @@ export default {
 				participantList: [],
 				pagInformation: {},
 				modalTitle: '',
+				participantId: null
 			}
     },
     methods: {
 			showForm(){
 				this.modalTitle = 'Participante'
+			},
+			submitParticipant(data){
+				let self = this;
+				axios.get('/participants/')
+							.then( response => {
+									self.participantList = response.data.participants.data;
+									self.pagInformation = response.data.participants;
+							})
+							.catch( error => {
+								console.log(error.response);
+							});
+				$('#parcipant-modal').modal('hide');
 			}
     }
 }

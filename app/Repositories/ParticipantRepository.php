@@ -25,4 +25,8 @@ class ParticipantRepository
 
         return $response;
     }
+
+    public function add($data){
+        return Participant::create($data);
+    }
 }
