@@ -32,7 +32,7 @@
 													</tr>
 												</thead>
 												<tbody>
-													<tr v-for="participant in participantList" :key="participant.id">
+													<tr v-for="participant in participantList" :key="participant.id" @click="showParticipant(participant.id)">
 														<td>{{participant.name}}</td>
 														<td>{{participant.lastname}}</td>
 														<td>{{participant.email}}</td>
@@ -73,6 +73,10 @@
 			v-on:submit="submitParticipant($event)"
 		></participant-form-component>
 
+		<participant-data-component
+			:participantId="participantId"
+		></participant-data-component>
+
 	</div>
 </template>
 
@@ -95,7 +99,8 @@ export default {
 				participantList: [],
 				pagInformation: {},
 				modalTitle: '',
-				participantId: null
+				participantId: null,
+				participant: {},
 			}
     },
     methods: {
@@ -113,6 +118,17 @@ export default {
 								console.log(error.response);
 							});
 				$('#parcipant-modal').modal('hide');
+			},
+			showParticipant(participant_id){
+				this.participantId = participant_id;
+				axios.get(`/participants/${this.participantId}`)
+						.then( response => {
+							this.participant = response.data.participant;
+						})
+						.catch( error => {
+							console.log(error.response);
+						});
+				$('#data-modal').modal('show');
 			}
     }
 }
