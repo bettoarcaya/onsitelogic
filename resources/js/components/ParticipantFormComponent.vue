@@ -17,49 +17,95 @@
 								</button>
 							</div>
 							<div class="modal-body">
-								<div class="form-group">
-									<label for="client_name">Nombre <span class="required-color">*</span></label>
-									<input
-										type="text"
-										id="participant_name"
-										class="form-control"
-										placeholder="Nombre"
-										name="name"
-										autocomplete="off"
-										v-model="form.name">
-								</div>
-								<div class="form-group">
-									<label for="client_name">Apellido <span class="required-color">*</span></label>
-									<input
-										type="text"
-										id="participant_lastname"
-										class="form-control"
-										placeholder="Apellido"
-										name="lastname"
-										autocomplete="off"
-										v-model="form.lastname">
-								</div>
-								<div class="form-group">
-									<label for="client_name">Email <span class="required-color">*</span></label>
-									<input
-										type="text"
-										id="participant_email"
-										class="form-control"
-										placeholder="Email"
-										name="email"
-										autocomplete="off"
-										v-model="form.email">
-								</div>
-								<div class="form-group">
-									<label for="participant_type">Tipo</label>
-									<select id="participant_type" class="form-control custom-select" v-model="form.type" name="type">
-										<option
-											v-for="type in types"
-											:key="type.id"
-											:value="{id: type.id, name: type.type}">
-											{{type.type}}
-										</option>
-									</select>
+								<div class="row">
+									<div class="form-group col-md-6">
+										<label for="client_name">Nombre <span class="required-color">*</span></label>
+										<input
+											type="text"
+											id="participant_name"
+											class="form-control"
+											placeholder="Nombre"
+											name="name"
+											autocomplete="off"
+											v-model="form.name">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="client_name">Apellido <span class="required-color">*</span></label>
+										<input
+											type="text"
+											id="participant_lastname"
+											class="form-control"
+											placeholder="Apellido"
+											name="lastname"
+											autocomplete="off"
+											v-model="form.lastname">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="client_name">Email <span class="required-color">*</span></label>
+										<input
+											type="text"
+											id="participant_email"
+											class="form-control"
+											placeholder="Email"
+											name="email"
+											autocomplete="off"
+											v-model="form.email">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="client_name">Cedula de identidad <span class="required-color">*</span></label>
+										<input
+											type="text"
+											id="participant_idnumber"
+											class="form-control"
+											placeholder="Cedula de identidad"
+											name="id_number"
+											autocomplete="off"
+											v-model="form.id_number">
+									</div>
+									<div class="form-group col-md-12">
+										<label for="participant_type">Tipo <span class="required-color">*</span></label>
+										<select id="participant_type" class="form-control custom-select" v-model="form.type" name="type">
+											<option
+												v-for="type in types"
+												:key="type.id"
+												:value="{id: type.id, name: type.type}">
+												{{type.type}}
+											</option>
+										</select>
+									</div>
+									<div class="form-group col-md-12">
+										<label for="client_name">Direccion</label>
+										<input
+											type="text"
+											id="participant_address"
+											class="form-control"
+											placeholder="Direccion"
+											name="address"
+											autocomplete="off"
+											v-model="form.address">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="client_name">Telefono</label>
+										<input
+											type="text"
+											id="participant_phone"
+											class="form-control"
+											placeholder="Telefono"
+											name="phone"
+											autocomplete="off"
+											v-model="form.phone">
+									</div>
+									<div class="form-group col-md-6">
+										<label for="client_name">Fecha de nacimiento</label>
+										<input
+											type="date"
+											id="participant_date"
+											class="form-control"
+											placeholder="Fecha de nacimiento"
+											name="born_date"
+											autocomplete="off"
+											v-model="form.date">
+									</div>
 								</div>
 							</div>
 							<div class="modal-footer">
@@ -94,13 +140,18 @@ export default {
 					name: null,
 					lastname: null,
 					email: null,
-					type: {}
+					type: {},
+					id_number: null,
+					address: null,
+					phone: null,
+					date: null
 				}
 			}
 		},
 		methods: {
 			submit(){
 				this.validateForm();
+				console.log(this.form);
 				if( this.validateFlag ){
 					let self = this;
 					axios.post('/participants/', this.form)

@@ -13,6 +13,10 @@ class Participant extends Model
         'email', 
         'participant_id', 
         'assistance',
-        'type'
+        'type',
+        'id_number',
+        'address',
+        'phone',
+        'born_date'
     ];
 }

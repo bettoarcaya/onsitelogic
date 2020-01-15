@@ -27,7 +27,8 @@ class StoreParticipant extends FormRequest
             'name' => 'required',
             'lastname' => 'required',
             'email' => 'required|unique:participants|email',
-            'type' => 'required'
+            'type' => 'required',
+            'id_number' => 'required|unique:participants'
         ];
     }
 }

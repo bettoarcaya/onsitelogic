@@ -71,7 +71,11 @@ class ParticipantController extends Controller
           'email' => $request->email,
           'type' => $request->type['id'],
           'assistance' => false,
-          'participant_id' => Str::random(12)
+          'participant_id' => Str::random(12),
+          'id_number' => intval($request->id_number),
+          'born_date' => $request->date,
+          'address' => $request->address,
+          'phone' => $request->phone
         ];
 
         $participant = $this->participant_repository->add($data);

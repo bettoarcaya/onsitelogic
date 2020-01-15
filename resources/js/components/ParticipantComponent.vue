@@ -26,8 +26,12 @@
 														<th>Nombre</th>
 														<th>Apellido</th>
 														<th>Email</th>
+														<th>Cedula</th>
 														<th>ParticipantID</th>
 														<th>Asistencia</th>
+														<th>Direccion</th>
+														<th>Telefono</th>
+														<th>F / nacimiento</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -35,15 +39,16 @@
 														<td>{{participant.name}}</td>
 														<td>{{participant.lastname}}</td>
 														<td>{{participant.email}}</td>
+														<td>{{participant.id_number}}</td>
 														<td>{{participant.participant_id}}</td>
 														<td>{{participant.assistance}}</td>
+														<td>{{participant.address}}</td>
+														<td>{{participant.phone}}</td>
+														<td>{{participant.born_date}}</td>
 														<!--<td width="10px">
 															<a
 																href="javascript:void(0)"
-																class="btn btn-sm"
-																data-toggle="modal"
-																data-target="#watch-client-modal"
-																v-on:click="openModal(client)">
+																class="btn btn-sm">
 																<img
 																	class="w-20-px"
 																	:src="'/assets/icons/eye-solid.svg'">
@@ -52,25 +57,10 @@
 														<td width="10px">
 															<a
 																href="javascript:void(0)"
-																class="btn btn-sm"
-																data-toggle="modal"
-																data-target="#edit-client-modal"
-																v-on:click="openEditModal(client)">
+																class="btn btn-sm">
 																<img
 																	class="w-20-px"
 																	:src="'/assets/icons/edit-solid.svg'">
-															</a>
-														</td>
-														<td width="10px">
-															<a
-																href="javascript:void(0)"
-																class="btn btn-sm"
-																data-toggle="modal"
-																data-target="#delete-client-modal"
-																v-on:click="openDeleteModal(client.name, client.id)">
-																<img
-																	class="w-20-px"
-																	:src="'/assets/icons/trash-alt-solid.svg'">
 															</a>
 														</td>-->
 													</tr>
