@@ -12,21 +12,29 @@ use Illuminate\Support\Facades\DB;
 
 class ParticipantRepository
 {
-    public function getAll(){
-
+    public function getAll()
+    {
         $response = Participant::paginate(10);
 
         return $response;
     }
 
-    public function getAllTypes(){
-        
-        $response = UserType::all();
+    public function getAllTypes()
+    {    
+        $response = UserType::All();
 
         return $response;
     }
 
-    public function add($data){
+    public function add($data)
+    {
         return Participant::create($data);
+    }
+
+    public function getParticipant($participant_id)
+    {
+        $response = Participant::findOrFail($participant_id);
+
+        return $response;
     }
 }

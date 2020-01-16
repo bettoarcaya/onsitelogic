@@ -37,7 +37,7 @@ class ParticipantController extends Controller
         return response()->json($data, 200);
     }
 
-    public function getParticipantTypes(){
+    public function participantTypes(){
         
         $types = $this->participant_repository->getAllTypes();
         
@@ -93,7 +93,11 @@ class ParticipantController extends Controller
      */
     public function show($id)
     {
-        //
+        $participant = $this->participant_repository->getParticipant($id);
+
+        $data = compact('participant');
+
+        return response()->json($data, 200);
     }
 
     /**

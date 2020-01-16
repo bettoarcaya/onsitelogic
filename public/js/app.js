@@ -2047,6 +2047,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   beforeMount: function beforeMount() {
     var self = this;
@@ -2086,6 +2087,7 @@ __webpack_require__.r(__webpack_exports__);
       this.participantId = participant_id;
       axios.get("/participants/".concat(this.participantId)).then(function (response) {
         _this.participant = response.data.participant;
+        console.log(response);
       })["catch"](function (error) {
         console.log(error.response);
       });
@@ -2135,10 +2137,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['participantId'],
+  props: ['participantId', 'participant'],
   data: function data() {
-    return {};
+    return {
+      types: {
+        1: 'Visitante',
+        2: 'Exponente',
+        3: 'Asesor'
+      }
+    };
   },
   methods: {}
 });
@@ -2278,16 +2317,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['modalTitle', 'participantId'],
   beforeMount: function beforeMount() {
-    var self = this;
-    axios.get('/participants/types/').then(function (response) {
-      self.types = response.data.types;
-    })["catch"](function (error) {
-      console.log(error.response);
-    });
+    /*let self = this;
+       axios.get('/participants/types')
+    			.then( response => {
+    					self.types = response.data.types;
+    			})
+    			.catch( error => {
+    				console.log(error.response);
+    			});*/
   },
   data: function data() {
     return {
-      types: [],
+      types: [{
+        id: 1,
+        type: 'Visitante'
+      }, {
+        id: 2,
+        type: 'Exponente'
+      }, {
+        id: 3,
+        type: 'Asesor'
+      }],
       validateFlag: true,
       form: {
         name: null,
@@ -40890,7 +40940,10 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("participant-data-component", {
-        attrs: { participantId: _vm.participantId }
+        attrs: {
+          participantId: _vm.participantId,
+          participant: _vm.participant
+        }
       })
     ],
     1
@@ -40963,10 +41016,14 @@ var render = function() {
             _c("div", { staticClass: "modal-content" }, [
               _c("div", {}, [
                 _c("div", { staticClass: "modal-header bg-orange" }, [
+                  _c("h5", { staticClass: "modal-title color-white" }, [
+                    _vm._v("Datos del parcipante")
+                  ]),
+                  _vm._v(" "),
                   _c(
                     "button",
                     {
-                      staticClass: "close",
+                      staticClass: "close float-right",
                       attrs: {
                         type: "button",
                         "data-dismiss": "modal",
@@ -40975,15 +41032,77 @@ var render = function() {
                     },
                     [
                       _c("span", { attrs: { "aria-hidden": "true" } }, [
-                        _c("img", { attrs: { src: "/assets/dismiss.svg" } })
+                        _c("img", {
+                          attrs: { src: "/assets/icons/dismiss.svg" }
+                        })
                       ])
                     ]
                   )
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "modal-body" }),
+                _c(
+                  "div",
+                  { staticClass: "bg-orange container padd-20 bor-btt-rad" },
+                  [
+                    _c("div", { staticClass: "text-center" }, [
+                      _c("img", {
+                        staticClass: "img img-fluid img-round w-45-pc",
+                        attrs: { src: "/assets/icons/default.png" }
+                      }),
+                      _vm._v(" "),
+                      _c("h4", { staticClass: "color-white margin-t-20" }, [
+                        _vm._v(_vm._s(_vm.types[_vm.participant.type]))
+                      ]),
+                      _vm._v(" "),
+                      _c("h5", { staticClass: "color-white" }, [
+                        _vm._v(
+                          "ParticipantID: " +
+                            _vm._s(_vm.participant.participant_id)
+                        )
+                      ])
+                    ])
+                  ]
+                ),
                 _vm._v(" "),
-                _vm._m(0)
+                _c("div", { staticClass: "modal-body" }, [
+                  _c("div", { staticClass: "container" }, [
+                    _c("div", { staticClass: "row" }, [
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("p", [
+                          _vm._v(
+                            " " +
+                              _vm._s(
+                                _vm.participant.name +
+                                  " " +
+                                  _vm.participant.lastname
+                              ) +
+                              " "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v(" " + _vm._s(_vm.participant.id_number) + " ")
+                        ]),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v(" " + _vm._s(_vm.participant.address) + " ")
+                        ]),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v(" " + _vm._s(_vm.participant.phone) + " ")
+                        ]),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v(" " + _vm._s(_vm.participant.born_date) + " ")
+                        ])
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm._m(1)
               ])
             ])
           ]
@@ -40993,6 +41112,22 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6 text-right" }, [
+      _c("p", [_c("b", [_vm._v("Nombre:")])]),
+      _vm._v(" "),
+      _c("p", [_c("b", [_vm._v("Cedula:")])]),
+      _vm._v(" "),
+      _c("p", [_c("b", [_vm._v("Direccion:")])]),
+      _vm._v(" "),
+      _c("p", [_c("b", [_vm._v("Telefono:")])]),
+      _vm._v(" "),
+      _c("p", [_c("b", [_vm._v("Fecha de nacimiento:")])])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -41081,7 +41216,9 @@ var render = function() {
                       },
                       [
                         _c("span", { attrs: { "aria-hidden": "true" } }, [
-                          _c("img", { attrs: { src: "/assets/dismiss.svg" } })
+                          _c("img", {
+                            attrs: { src: "/assets/icons/dismiss.svg" }
+                          })
                         ])
                       ]
                     )

@@ -13,7 +13,7 @@
 							<div class="modal-header bg-orange">
 								<h5 class="modal-title color-white">{{ modalTitle }}</h5>
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true"><img :src="'/assets/dismiss.svg'"></span>
+									<span aria-hidden="true"><img :src="'/assets/icons/dismiss.svg'"></span>
 								</button>
 							</div>
 							<div class="modal-body">
@@ -123,18 +123,22 @@
 export default {
 		props: ['modalTitle', 'participantId'],
 		beforeMount(){
-			let self = this;
-      axios.get('/participants/types/')
+			/*let self = this;
+      axios.get('/participants/types')
 						.then( response => {
 								self.types = response.data.types;
 						})
 						.catch( error => {
 							console.log(error.response);
-						});
+						});*/
 		},
     data(){
 			return{
-				types: [],
+				types: [
+					{id: 1, type: 'Visitante'},
+					{id: 2, type: 'Exponente'},
+					{id: 3, type: 'Asesor'}
+				],
 				validateFlag: true,
 				form: {
 					name: null,

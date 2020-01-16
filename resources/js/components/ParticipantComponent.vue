@@ -75,6 +75,7 @@
 
 		<participant-data-component
 			:participantId="participantId"
+			:participant="participant"
 		></participant-data-component>
 
 	</div>
@@ -124,6 +125,7 @@ export default {
 				axios.get(`/participants/${this.participantId}`)
 						.then( response => {
 							this.participant = response.data.participant;
+							console.log(response);
 						})
 						.catch( error => {
 							console.log(error.response);
