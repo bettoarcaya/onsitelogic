@@ -28,6 +28,7 @@
 											name="name"
 											autocomplete="off"
 											v-model="form.name">
+											<small class="form-control-feedback" v-if="errors.name" v-text="errors.name[0]"></small>
 									</div>
 									<div class="form-group col-md-6">
 										<label for="client_name">Apellido <span class="required-color">*</span></label>
@@ -39,6 +40,7 @@
 											name="lastname"
 											autocomplete="off"
 											v-model="form.lastname">
+											<small class="form-control-feedback" v-if="errors.lastname" v-text="errors.lastname[0]"></small>
 									</div>
 									<div class="form-group col-md-6">
 										<label for="client_name">Email <span class="required-color">*</span></label>
@@ -50,6 +52,7 @@
 											name="email"
 											autocomplete="off"
 											v-model="form.email">
+											<small class="form-control-feedback" v-if="errors.email" v-text="errors.email[0]"></small>
 									</div>
 									<div class="form-group col-md-6">
 										<label for="client_name">Cedula de identidad <span class="required-color">*</span></label>
@@ -61,6 +64,7 @@
 											name="id_number"
 											autocomplete="off"
 											v-model="form.id_number">
+											<small class="form-control-feedback" v-if="errors.id_number" v-text="errors.id_number[0]"></small>
 									</div>
 									<div class="form-group col-md-12">
 										<label for="participant_type">Tipo <span class="required-color">*</span></label>
@@ -72,6 +76,7 @@
 												{{type.type}}
 											</option>
 										</select>
+										<small class="form-control-feedback" v-if="errors.type" v-text="errors.type[0]"></small>
 									</div>
 									<div class="form-group col-md-12">
 										<label for="client_name">Direccion</label>
@@ -104,7 +109,7 @@
 											placeholder="Fecha de nacimiento"
 											name="born_date"
 											autocomplete="off"
-											v-model="form.date">
+											v-model="form.born_date">
 									</div>
 								</div>
 							</div>
@@ -121,7 +126,7 @@
 
 <script>
 export default {
-		props: ['modalTitle', 'participantId'],
+		props: ['modalTitle', 'participantId', 'form'],
 		beforeMount(){
 			/*let self = this;
       axios.get('/participants/types')
@@ -140,22 +145,13 @@ export default {
 					{id: 3, type: 'Asesor'}
 				],
 				validateFlag: true,
-				form: {
-					name: null,
-					lastname: null,
-					email: null,
-					type: {},
-					id_number: null,
-					address: null,
-					phone: null,
-					date: null
-				}
+				errors: {},
 			}
 		},
 		methods: {
 			submit(){
 				this.validateForm();
-				console.log(this.form);
+				
 				if( this.validateFlag ){
 					let self = this;
 					axios.post('/participants/', this.form)
@@ -164,7 +160,9 @@ export default {
 									this.$emit('submit', {});
 								})
 								.catch( error => {
-									console.log(error.response);
+									if( error.response.status == 422 ){
+										self.errors = error.response.data.errors
+									}
 									this.message('error', 'Ha ocurrido un error por favor intente nuevamente');
 								});
 				}else{

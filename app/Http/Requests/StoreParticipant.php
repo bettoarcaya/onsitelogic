@@ -31,4 +31,19 @@ class StoreParticipant extends FormRequest
             'id_number' => 'required|unique:participants'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Este campo no puede estar vacio',
+            'lastname.required' => 'Este campo no puede estar vacio',
+            'email.required' => 'Este campo no puede estar vacio',
+            'email.unique' => 'Ya se encuentra un participante con este email',
+            'email.email' => 'Debes ingresar una direccion valida',
+            'type.required' => 'Este campo no puede estar vacio',
+            'id_number.required' => 'Este campo no puede estar vacio',
+            'id_number.unique' => 'Ya se encuentra un participante con este numero de cedula',
+
+        ];
+    }
 }

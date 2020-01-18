@@ -11,7 +11,7 @@
 													href="javascript:void(0)"
 													data-toggle="modal"
               						data-target="#parcipant-modal"
-													@click="showForm">
+													@click="showForm(null)">
 													Agregar
 											</a>
 									</div>
@@ -70,12 +70,14 @@
 		<participant-form-component
 			:modalTitle="modalTitle"
 			:participantId="participantId"
+			:form="form"
 			v-on:submit="submitParticipant($event)"
 		></participant-form-component>
 
 		<participant-data-component
 			:participantId="participantId"
 			:participant="participant"
+			v-on:load="showForm"
 		></participant-data-component>
 
 	</div>
@@ -102,11 +104,37 @@ export default {
 				modalTitle: '',
 				participantId: null,
 				participant: {},
+				form: {
+					name: null,
+					lastname: null,
+					email: null,
+					type: {},
+					id_number: null,
+					address: null,
+					phone: null,
+					born_date: null
+				}
 			}
     },
     methods: {
-			showForm(){
-				this.modalTitle = 'Participante'
+			showForm(id){
+				if( id ){
+					this.modalTitle = 'Editar Paticipante';
+					this.form = this.participant;
+					console.log( this.form );
+				}else{
+					this.form = {
+						name: null,
+						lastname: null,
+						email: null,
+						type: {},
+						id_number: null,
+						address: null,
+						phone: null,
+						born_date: null
+					}
+					this.modalTitle = 'Agregar Paticipante';
+				}
 			},
 			submitParticipant(data){
 				let self = this;

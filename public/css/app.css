@@ -11389,3 +11389,7 @@ a.text-dark:focus {
   border-bottom-left-radius: 50px;
 }
 
+.form-control-feedback {
+  color: red;
+}
+

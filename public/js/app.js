@@ -2048,6 +2048,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   beforeMount: function beforeMount() {
     var self = this;
@@ -2064,12 +2066,38 @@ __webpack_require__.r(__webpack_exports__);
       pagInformation: {},
       modalTitle: '',
       participantId: null,
-      participant: {}
+      participant: {},
+      form: {
+        name: null,
+        lastname: null,
+        email: null,
+        type: {},
+        id_number: null,
+        address: null,
+        phone: null,
+        born_date: null
+      }
     };
   },
   methods: {
-    showForm: function showForm() {
-      this.modalTitle = 'Participante';
+    showForm: function showForm(id) {
+      if (id) {
+        this.modalTitle = 'Editar Paticipante';
+        this.form = this.participant;
+        console.log(this.form);
+      } else {
+        this.form = {
+          name: null,
+          lastname: null,
+          email: null,
+          type: {},
+          id_number: null,
+          address: null,
+          phone: null,
+          born_date: null
+        };
+        this.modalTitle = 'Agregar Paticipante';
+      }
     },
     submitParticipant: function submitParticipant(data) {
       var self = this;
@@ -2168,6 +2196,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['participantId', 'participant'],
   data: function data() {
@@ -2179,7 +2215,11 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  methods: {}
+  methods: {
+    showForm: function showForm() {
+      this.$emit('load', this.participantId);
+    }
+  }
 });
 
 /***/ }),
@@ -2314,8 +2354,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['modalTitle', 'participantId'],
+  props: ['modalTitle', 'participantId', 'form'],
   beforeMount: function beforeMount() {
     /*let self = this;
        axios.get('/participants/types')
@@ -2339,16 +2384,7 @@ __webpack_require__.r(__webpack_exports__);
         type: 'Asesor'
       }],
       validateFlag: true,
-      form: {
-        name: null,
-        lastname: null,
-        email: null,
-        type: {},
-        id_number: null,
-        address: null,
-        phone: null,
-        date: null
-      }
+      errors: {}
     };
   },
   methods: {
@@ -2356,7 +2392,6 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.validateForm();
-      console.log(this.form);
 
       if (this.validateFlag) {
         var self = this;
@@ -2365,7 +2400,9 @@ __webpack_require__.r(__webpack_exports__);
 
           _this.$emit('submit', {});
         })["catch"](function (error) {
-          console.log(error.response);
+          if (error.response.status == 422) {
+            self.errors = error.response.data.errors;
+          }
 
           _this.message('error', 'Ha ocurrido un error por favor intente nuevamente');
         });
@@ -40859,7 +40896,11 @@ var render = function() {
                       "data-toggle": "modal",
                       "data-target": "#parcipant-modal"
                     },
-                    on: { click: _vm.showForm }
+                    on: {
+                      click: function($event) {
+                        return _vm.showForm(null)
+                      }
+                    }
                   },
                   [
                     _vm._v(
@@ -40931,7 +40972,11 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("participant-form-component", {
-        attrs: { modalTitle: _vm.modalTitle, participantId: _vm.participantId },
+        attrs: {
+          modalTitle: _vm.modalTitle,
+          participantId: _vm.participantId,
+          form: _vm.form
+        },
         on: {
           submit: function($event) {
             return _vm.submitParticipant($event)
@@ -40943,7 +40988,8 @@ var render = function() {
         attrs: {
           participantId: _vm.participantId,
           participant: _vm.participant
-        }
+        },
+        on: { load: _vm.showForm }
       })
     ],
     1
@@ -41102,7 +41148,23 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._m(1)
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn bg-orange color-white",
+                      attrs: {
+                        type: "button",
+                        id: "edit-btn",
+                        "data-dismiss": "modal",
+                        "data-toggle": "modal",
+                        "data-target": "#parcipant-modal"
+                      },
+                      on: { click: _vm.showForm }
+                    },
+                    [_vm._v("Editar")]
+                  )
+                ])
               ])
             ])
           ]
@@ -41126,21 +41188,6 @@ var staticRenderFns = [
       _c("p", [_c("b", [_vm._v("Telefono:")])]),
       _vm._v(" "),
       _c("p", [_c("b", [_vm._v("Fecha de nacimiento:")])])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn bg-orange color-white",
-          attrs: { type: "button", id: "edit-btn" }
-        },
-        [_vm._v("Editar")]
-      )
     ])
   }
 ]
@@ -41255,7 +41302,16 @@ var render = function() {
                               _vm.$set(_vm.form, "name", $event.target.value)
                             }
                           }
-                        })
+                        }),
+                        _vm._v(" "),
+                        _vm.errors.name
+                          ? _c("small", {
+                              staticClass: "form-control-feedback",
+                              domProps: {
+                                textContent: _vm._s(_vm.errors.name[0])
+                              }
+                            })
+                          : _vm._e()
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group col-md-6" }, [
@@ -41291,7 +41347,16 @@ var render = function() {
                               )
                             }
                           }
-                        })
+                        }),
+                        _vm._v(" "),
+                        _vm.errors.lastname
+                          ? _c("small", {
+                              staticClass: "form-control-feedback",
+                              domProps: {
+                                textContent: _vm._s(_vm.errors.lastname[0])
+                              }
+                            })
+                          : _vm._e()
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group col-md-6" }, [
@@ -41323,7 +41388,16 @@ var render = function() {
                               _vm.$set(_vm.form, "email", $event.target.value)
                             }
                           }
-                        })
+                        }),
+                        _vm._v(" "),
+                        _vm.errors.email
+                          ? _c("small", {
+                              staticClass: "form-control-feedback",
+                              domProps: {
+                                textContent: _vm._s(_vm.errors.email[0])
+                              }
+                            })
+                          : _vm._e()
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group col-md-6" }, [
@@ -41359,7 +41433,16 @@ var render = function() {
                               )
                             }
                           }
-                        })
+                        }),
+                        _vm._v(" "),
+                        _vm.errors.id_number
+                          ? _c("small", {
+                              staticClass: "form-control-feedback",
+                              domProps: {
+                                textContent: _vm._s(_vm.errors.id_number[0])
+                              }
+                            })
+                          : _vm._e()
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group col-md-12" }, [
@@ -41417,7 +41500,16 @@ var render = function() {
                             )
                           }),
                           0
-                        )
+                        ),
+                        _vm._v(" "),
+                        _vm.errors.type
+                          ? _c("small", {
+                              staticClass: "form-control-feedback",
+                              domProps: {
+                                textContent: _vm._s(_vm.errors.type[0])
+                              }
+                            })
+                          : _vm._e()
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group col-md-12" }, [
@@ -41498,8 +41590,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.form.date,
-                              expression: "form.date"
+                              value: _vm.form.born_date,
+                              expression: "form.born_date"
                             }
                           ],
                           staticClass: "form-control",
@@ -41510,13 +41602,17 @@ var render = function() {
                             name: "born_date",
                             autocomplete: "off"
                           },
-                          domProps: { value: _vm.form.date },
+                          domProps: { value: _vm.form.born_date },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.$set(_vm.form, "date", $event.target.value)
+                              _vm.$set(
+                                _vm.form,
+                                "born_date",
+                                $event.target.value
+                              )
                             }
                           }
                         })

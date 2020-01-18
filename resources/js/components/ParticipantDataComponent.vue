@@ -50,7 +50,15 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" id="edit-btn" class="btn bg-orange color-white">Editar</button>
+							<button 
+								type="button" 
+								id="edit-btn" 
+								class="btn bg-orange color-white"
+								data-dismiss="modal"
+								data-toggle="modal"
+								data-target="#parcipant-modal"
+								@click="showForm"
+							>Editar</button>
 						</div>
 					</div>
 				</div>
@@ -72,7 +80,9 @@ export default {
 		}	
 	},
 	methods: {
-		
+		showForm(){
+			this.$emit('load', this.participantId);
+		}
 	}
 }
 </script>

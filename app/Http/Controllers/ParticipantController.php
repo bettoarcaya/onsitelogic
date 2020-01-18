@@ -39,6 +39,7 @@ class ParticipantController extends Controller
 
     public function participantTypes(){
         
+        dd('here');
         $types = $this->participant_repository->getAllTypes();
         
         $data = compact('types');
