@@ -28,6 +28,7 @@
 														<th>Email</th>
 														<th>Cedula</th>
 														<th>ParticipantID</th>
+														<th>Evento</th>
 														<th>Asistencia</th>
 													</tr>
 												</thead>
@@ -38,6 +39,7 @@
 														<td>{{participant.email}}</td>
 														<td>{{participant.id_number}}</td>
 														<td>{{participant.participant_id}}</td>
+														<td>{{participant.event_name}}</td>
 														<td>{{participant.assistance}}</td>
 														<!--<td width="10px">
 															<a
@@ -90,6 +92,7 @@ export default {
 			let self = this;
       axios.get('/participants/')
 						.then( response => {
+								console.log(response.data.participants);
 								self.participantList = response.data.participants.data;
 								self.pagInformation = response.data.participants;
 						})

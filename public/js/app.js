@@ -2050,10 +2050,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   beforeMount: function beforeMount() {
     var self = this;
     axios.get('/participants/').then(function (response) {
+      console.log(response.data.participants);
       self.participantList = response.data.participants.data;
       self.pagInformation = response.data.participants;
     })["catch"](function (error) {
@@ -40975,6 +40978,10 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("td", [
+                                    _vm._v(_vm._s(participant.event_name))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
                                     _vm._v(_vm._s(participant.assistance))
                                   ])
                                 ]
@@ -41031,6 +41038,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Cedula")]),
         _vm._v(" "),
         _c("th", [_vm._v("ParticipantID")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Evento")]),
         _vm._v(" "),
         _c("th", [_vm._v("Asistencia")])
       ])

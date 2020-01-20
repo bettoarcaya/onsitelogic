@@ -15,7 +15,10 @@ class ParticipantRepository
 {
     public function getAll()
     {
-        $response = Participant::paginate(10);
+        $response = DB::table('participant_lists')
+                        ->join('participants', 'participant_lists.participant_id', '=', 'participants.id')
+                        ->join('events', 'participant_lists.event_id', '=', 'events.id')
+                        ->paginate(10);
 
         return $response;
     }
