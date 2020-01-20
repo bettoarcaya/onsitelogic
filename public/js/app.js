@@ -2056,7 +2056,6 @@ __webpack_require__.r(__webpack_exports__);
   beforeMount: function beforeMount() {
     var self = this;
     axios.get('/participants/').then(function (response) {
-      console.log(response.data.participants);
       self.participantList = response.data.participants.data;
       self.pagInformation = response.data.participants;
     })["catch"](function (error) {
@@ -2077,6 +2076,7 @@ __webpack_require__.r(__webpack_exports__);
       participant: {},
       events: [],
       form: {
+        id: null,
         name: null,
         lastname: null,
         email: null,
@@ -2094,9 +2094,9 @@ __webpack_require__.r(__webpack_exports__);
       if (id) {
         this.modalTitle = 'Editar Paticipante';
         this.form = this.participant;
-        console.log(this.form);
       } else {
         this.form = {
+          id: id,
           name: null,
           lastname: null,
           email: null,
@@ -2113,6 +2113,7 @@ __webpack_require__.r(__webpack_exports__);
     submitParticipant: function submitParticipant(data) {
       var self = this;
       axios.get('/participants/').then(function (response) {
+        console.log(response.data.participants);
         self.participantList = response.data.participants.data;
         self.pagInformation = response.data.participants;
       })["catch"](function (error) {
@@ -2418,27 +2419,45 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.validateFlag) {
         var self = this;
-        axios.post('/participants/', this.form).then(function (response) {
-          _this.message('success', 'Usuario guardado satisfactoriamente');
 
-          _this.$emit('submit', {});
-        })["catch"](function (error) {
-          if (error.response.status == 422) {
-            self.errors = error.response.data.errors;
-          }
+        if (!this.form.id) {
+          axios.post('/participants/', this.form).then(function (response) {
+            _this.message('success', 'Usuario guardado satisfactoriamente');
 
-          _this.message('error', 'Ha ocurrido un error por favor intente nuevamente');
-        });
+            _this.$emit('submit', {});
+          })["catch"](function (error) {
+            if (error.response.status == 422) {
+              self.errors = error.response.data.errors;
+            }
+
+            _this.message('error', 'Ha ocurrido un error por favor intente nuevamente');
+          });
+        } else {
+          axios.put("/participants/".concat(this.form.id), this.form).then(function (response) {
+            _this.message('success', 'Usuario guardado satisfactoriamente');
+
+            _this.$emit('submit', {});
+          })["catch"](function (error) {
+            if (error.response.status == 422) {
+              self.errors = error.response.data.errors;
+            }
+
+            _this.message('error', 'Ha ocurrido un error por favor intente nuevamente');
+          });
+        }
       } else {
         this.message('error', 'Existen campos requeridos que no han sido completados');
       }
     },
     validateForm: function validateForm() {
-      for (var key in this.form) {
-        if (this.form[key] == '' || this.form[key] == null) {
-          this.validateFlag = false;
+      var _this2 = this;
+
+      var requiredFields = this.form.id ? ['name', 'lastname', 'email', 'id_number'] : ['name', 'lastname', 'email', 'type', 'id_number', 'event'];
+      requiredFields.map(function (field) {
+        if (_this2.form[field] == '' || _this2.form[field] == null) {
+          _this2.validateFlag = false;
         }
-      }
+      });
     },
     message: function message(status, msg) {
       var Swal = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
@@ -41474,142 +41493,151 @@ var render = function() {
                           : _vm._e()
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "form-group col-md-6" }, [
-                        _vm._m(4),
-                        _vm._v(" "),
-                        _c(
-                          "select",
-                          {
-                            directives: [
+                      !_vm.form.id
+                        ? _c("div", { staticClass: "form-group col-md-6" }, [
+                            _vm._m(4),
+                            _vm._v(" "),
+                            _c(
+                              "select",
                               {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.type,
-                                expression: "form.type"
-                              }
-                            ],
-                            staticClass: "form-control custom-select",
-                            attrs: { id: "participant_type", name: "type" },
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.$set(
-                                  _vm.form,
-                                  "type",
-                                  $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
-                                )
-                              }
-                            }
-                          },
-                          _vm._l(_vm.types, function(type) {
-                            return _c(
-                              "option",
-                              {
-                                key: type.id,
-                                domProps: {
-                                  value: { id: type.id, name: type.type }
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n\t\t\t\t\t\t\t\t\t\t\t\t" +
-                                    _vm._s(type.type) +
-                                    "\n\t\t\t\t\t\t\t\t\t\t\t"
-                                )
-                              ]
-                            )
-                          }),
-                          0
-                        ),
-                        _vm._v(" "),
-                        _vm.errors.type
-                          ? _c("small", {
-                              staticClass: "form-control-feedback",
-                              domProps: {
-                                textContent: _vm._s(_vm.errors.type[0])
-                              }
-                            })
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group col-md-6" }, [
-                        _vm._m(5),
-                        _vm._v(" "),
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.event,
-                                expression: "form.event"
-                              }
-                            ],
-                            staticClass: "form-control custom-select",
-                            attrs: { id: "participant_event", name: "event" },
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.$set(
-                                  _vm.form,
-                                  "event",
-                                  $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
-                                )
-                              }
-                            }
-                          },
-                          _vm._l(_vm.events, function(event) {
-                            return _c(
-                              "option",
-                              {
-                                key: event.id,
-                                domProps: {
-                                  value: {
-                                    id: event.id,
-                                    name: event.event_name
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.type,
+                                    expression: "form.type"
+                                  }
+                                ],
+                                staticClass: "form-control custom-select",
+                                attrs: { id: "participant_type", name: "type" },
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.form,
+                                      "type",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
                                   }
                                 }
                               },
-                              [
-                                _vm._v(
-                                  "\n\t\t\t\t\t\t\t\t\t\t\t\t" +
-                                    _vm._s(event.event_name) +
-                                    "\n\t\t\t\t\t\t\t\t\t\t\t"
+                              _vm._l(_vm.types, function(type) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: type.id,
+                                    domProps: {
+                                      value: { id: type.id, name: type.type }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n\t\t\t\t\t\t\t\t\t\t\t\t" +
+                                        _vm._s(type.type) +
+                                        "\n\t\t\t\t\t\t\t\t\t\t\t"
+                                    )
+                                  ]
                                 )
-                              ]
-                            )
-                          }),
-                          0
-                        ),
-                        _vm._v(" "),
-                        _vm.errors.event
-                          ? _c("small", {
-                              staticClass: "form-control-feedback",
-                              domProps: {
-                                textContent: _vm._s(_vm.errors.event[0])
-                              }
-                            })
-                          : _vm._e()
-                      ]),
+                              }),
+                              0
+                            ),
+                            _vm._v(" "),
+                            _vm.errors.type
+                              ? _c("small", {
+                                  staticClass: "form-control-feedback",
+                                  domProps: {
+                                    textContent: _vm._s(_vm.errors.type[0])
+                                  }
+                                })
+                              : _vm._e()
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      !_vm.form.id
+                        ? _c("div", { staticClass: "form-group col-md-6" }, [
+                            _vm._m(5),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.event,
+                                    expression: "form.event"
+                                  }
+                                ],
+                                staticClass: "form-control custom-select",
+                                attrs: {
+                                  id: "participant_event",
+                                  name: "event"
+                                },
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.form,
+                                      "event",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  }
+                                }
+                              },
+                              _vm._l(_vm.events, function(event) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: event.id,
+                                    domProps: {
+                                      value: {
+                                        id: event.id,
+                                        name: event.event_name
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n\t\t\t\t\t\t\t\t\t\t\t\t" +
+                                        _vm._s(event.event_name) +
+                                        "\n\t\t\t\t\t\t\t\t\t\t\t"
+                                    )
+                                  ]
+                                )
+                              }),
+                              0
+                            ),
+                            _vm._v(" "),
+                            _vm.errors.event
+                              ? _c("small", {
+                                  staticClass: "form-control-feedback",
+                                  domProps: {
+                                    textContent: _vm._s(_vm.errors.event[0])
+                                  }
+                                })
+                              : _vm._e()
+                          ])
+                        : _vm._e(),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group col-md-12" }, [
                         _c("label", { attrs: { for: "client_name" } }, [

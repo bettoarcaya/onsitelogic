@@ -16,6 +16,11 @@ class ParticipantRepository
     public function getAll()
     {
         $response = DB::table('participant_lists')
+                        ->select(
+                            'participants.id as participant_id', 
+                            'participants.*',
+                            'events.event_name'
+                            )
                         ->join('participants', 'participant_lists.participant_id', '=', 'participants.id')
                         ->join('events', 'participant_lists.event_id', '=', 'events.id')
                         ->paginate(10);
@@ -48,5 +53,14 @@ class ParticipantRepository
             'participant_id' => $participant_id, 
             'event_id' => $event_id
         ]);
+    }
+
+    public function update($data, $participant_id)
+    {
+        $participant = DB::table('participants')
+                         ->where('id', $participant_id)
+                         ->update($data);
+        
+        return $participant;
     }
 }

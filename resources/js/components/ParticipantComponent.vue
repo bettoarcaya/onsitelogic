@@ -92,7 +92,6 @@ export default {
 			let self = this;
       axios.get('/participants/')
 						.then( response => {
-								console.log(response.data.participants);
 								self.participantList = response.data.participants.data;
 								self.pagInformation = response.data.participants;
 						})
@@ -116,6 +115,7 @@ export default {
 				participant: {},
 				events: [],
 				form: {
+					id: null,
 					name: null,
 					lastname: null,
 					email: null,
@@ -133,9 +133,9 @@ export default {
 				if( id ){
 					this.modalTitle = 'Editar Paticipante';
 					this.form = this.participant;
-					console.log( this.form );
 				}else{
 					this.form = {
+						id: id,
 						name: null,
 						lastname: null,
 						email: null,
@@ -153,6 +153,7 @@ export default {
 				let self = this;
 				axios.get('/participants/')
 							.then( response => {
+									console.log( response.data.participants );
 									self.participantList = response.data.participants.data;
 									self.pagInformation = response.data.participants;
 							})

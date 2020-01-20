@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Requests;
+use Illuminate\Http\Request;
 use App\Repositories\ParticipantRepository;
 use App\Http\Requests\StoreParticipant;
+use App\Http\Requests\UpdateParticipant;
 use Illuminate\Support\Str;
 
 class ParticipantController extends Controller
@@ -72,7 +74,7 @@ class ParticipantController extends Controller
           'assistance' => false,
           'participant_id' => Str::random(12),
           'id_number' => intval($request->id_number),
-          'born_date' => $request->date,
+          'born_date' => $request->born_date,
           'address' => $request->address,
           'phone' => $request->phone
         ];
@@ -118,9 +120,23 @@ class ParticipantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateParticipant $request, $id)
     {
-        //
+        $data = [
+            'name' => $request->name,
+            'lastname' => $request->lastname,
+            'email' => $request->email,
+            'id_number' => intval($request->id_number),
+            'born_date' => $request->born_date,
+            'address' => $request->address,
+            'phone' => $request->phone
+        ];
+
+        $participant = $this->participant_repository->update($data, $id);
+
+        $response = compact('participant');
+
+        return response()->json($response, 200);
     }
 
     /**

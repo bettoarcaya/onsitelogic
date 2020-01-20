@@ -66,7 +66,7 @@
 											v-model="form.id_number">
 											<small class="form-control-feedback" v-if="errors.id_number" v-text="errors.id_number[0]"></small>
 									</div>
-									<div class="form-group col-md-6">
+									<div class="form-group col-md-6" v-if="!form.id">
 										<label for="participant_type">Tipo <span class="required-color">*</span></label>
 										<select id="participant_type" class="form-control custom-select" v-model="form.type" name="type">
 											<option
@@ -78,7 +78,7 @@
 										</select>
 										<small class="form-control-feedback" v-if="errors.type" v-text="errors.type[0]"></small>
 									</div>
-									<div class="form-group col-md-6">
+									<div class="form-group col-md-6" v-if="!form.id">
 										<label for="participant_event">Evento <span class="required-color">*</span></label>
 										<select id="participant_event" class="form-control custom-select" v-model="form.event" name="event">
 											<option
@@ -168,7 +168,8 @@ export default {
 				
 				if( this.validateFlag ){
 					let self = this;
-					axios.post('/participants/', this.form)
+					if( !this.form.id ){
+						axios.post('/participants/', this.form)
 								.then( response => {
 									this.message('success', 'Usuario guardado satisfactoriamente');
 									this.$emit('submit', {});
@@ -179,17 +180,34 @@ export default {
 									}
 									this.message('error', 'Ha ocurrido un error por favor intente nuevamente');
 								});
+					}else{
+						axios.put(`/participants/${this.form.id}`, this.form)
+								.then( response => {
+									this.message('success', 'Usuario guardado satisfactoriamente');
+									this.$emit('submit', {});
+								})
+								.catch( error => {
+									if( error.response.status == 422 ){
+										self.errors = error.response.data.errors
+									}
+									this.message('error', 'Ha ocurrido un error por favor intente nuevamente');
+								});
+					}
 				}else{
 					this.message('error', 'Existen campos requeridos que no han sido completados');
 				}
 				
 			},
 			validateForm(){
-				for (const key in this.form) {
-					if( this.form[key] == '' || this.form[key] == null ){
+				let requiredFields = (this.form.id) 
+					? ['name', 'lastname', 'email', 'id_number']
+					: ['name', 'lastname', 'email', 'type', 'id_number', 'event'];
+				
+				requiredFields.map( field => {
+					if( this.form[field] == '' || this.form[field] == null ){
 						this.validateFlag = false;
 					}
-				}
+				});
 			},
 			message(status, msg){
         const Swal = require('sweetalert2');

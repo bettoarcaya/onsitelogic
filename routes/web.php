@@ -27,6 +27,7 @@ Route::group(['prefix' => 'participants', 'middleware' => 'auth'], function () {
     Route::get('/{id}', 'ParticipantController@show');
     Route::post('/', 'ParticipantController@store');
     Route::get('/types', 'ParticipantController@participantTypes');
+    Route::put('/{id}', 'ParticipantController@update');
 });
 
 Route::group(['prefix' => 'events', 'middleware' => 'auth'], function () {
