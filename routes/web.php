@@ -29,4 +29,8 @@ Route::group(['prefix' => 'participants', 'middleware' => 'auth'], function () {
     Route::get('/types', 'ParticipantController@participantTypes');
 });
 
+Route::group(['prefix' => 'events', 'middleware' => 'auth'], function () {
+    Route::get('/', 'EventController@index');
+});
+
 Auth::routes();

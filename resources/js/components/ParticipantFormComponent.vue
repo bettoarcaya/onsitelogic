@@ -66,7 +66,7 @@
 											v-model="form.id_number">
 											<small class="form-control-feedback" v-if="errors.id_number" v-text="errors.id_number[0]"></small>
 									</div>
-									<div class="form-group col-md-12">
+									<div class="form-group col-md-6">
 										<label for="participant_type">Tipo <span class="required-color">*</span></label>
 										<select id="participant_type" class="form-control custom-select" v-model="form.type" name="type">
 											<option
@@ -77,6 +77,18 @@
 											</option>
 										</select>
 										<small class="form-control-feedback" v-if="errors.type" v-text="errors.type[0]"></small>
+									</div>
+									<div class="form-group col-md-6">
+										<label for="participant_event">Evento <span class="required-color">*</span></label>
+										<select id="participant_event" class="form-control custom-select" v-model="form.event" name="event">
+											<option
+												v-for="event in events"
+												:key="event.id"
+												:value="{id: event.id, name: event.event_name}">
+												{{event.event_name}}
+											</option>
+										</select>
+										<small class="form-control-feedback" v-if="errors.event" v-text="errors.event[0]"></small>
 									</div>
 									<div class="form-group col-md-12">
 										<label for="client_name">Direccion</label>
@@ -128,14 +140,15 @@
 export default {
 		props: ['modalTitle', 'participantId', 'form'],
 		beforeMount(){
-			/*let self = this;
-      axios.get('/participants/types')
+			let self = this;
+      axios.get('/events/')
 						.then( response => {
-								self.types = response.data.types;
+								self.events = response.data;
+								console.log(response.data);
 						})
 						.catch( error => {
 							console.log(error.response);
-						});*/
+						});
 		},
     data(){
 			return{
@@ -144,6 +157,7 @@ export default {
 					{id: 2, type: 'Exponente'},
 					{id: 3, type: 'Asesor'}
 				],
+				events: [],
 				validateFlag: true,
 				errors: {},
 			}

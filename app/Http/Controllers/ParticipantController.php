@@ -39,7 +39,6 @@ class ParticipantController extends Controller
 
     public function participantTypes(){
         
-        dd('here');
         $types = $this->participant_repository->getAllTypes();
         
         $data = compact('types');
@@ -65,7 +64,6 @@ class ParticipantController extends Controller
      */
     public function store(StoreParticipant $request)
     {
-
         $data = [
           'name' => $request->name,
           'lastname' => $request->lastname,
@@ -80,8 +78,9 @@ class ParticipantController extends Controller
         ];
 
         $participant = $this->participant_repository->add($data);
+        $event = $this->participant_repository->addEvent($participant->id, $request->event['id']);
         
-        $response = compact($participant);
+        $response = compact('participant', 'event');
 
         return response()->json($response, 200);
     }

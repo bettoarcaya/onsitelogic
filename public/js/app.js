@@ -2059,6 +2059,11 @@ __webpack_require__.r(__webpack_exports__);
     })["catch"](function (error) {
       console.log(error.response);
     });
+    axios.get('/events/').then(function (response) {
+      self.events = response.data.events;
+    })["catch"](function (error) {
+      console.log(error.response);
+    });
   },
   data: function data() {
     return {
@@ -2067,11 +2072,13 @@ __webpack_require__.r(__webpack_exports__);
       modalTitle: '',
       participantId: null,
       participant: {},
+      events: [],
       form: {
         name: null,
         lastname: null,
         email: null,
         type: {},
+        event: {},
         id_number: null,
         address: null,
         phone: null,
@@ -2091,6 +2098,7 @@ __webpack_require__.r(__webpack_exports__);
           lastname: null,
           email: null,
           type: {},
+          event: {},
           id_number: null,
           address: null,
           phone: null,
@@ -2359,17 +2367,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['modalTitle', 'participantId', 'form'],
   beforeMount: function beforeMount() {
-    /*let self = this;
-       axios.get('/participants/types')
-    			.then( response => {
-    					self.types = response.data.types;
-    			})
-    			.catch( error => {
-    				console.log(error.response);
-    			});*/
+    var self = this;
+    axios.get('/events/').then(function (response) {
+      self.events = response.data;
+      console.log(response.data);
+    })["catch"](function (error) {
+      console.log(error.response);
+    });
   },
   data: function data() {
     return {
@@ -2383,6 +2402,7 @@ __webpack_require__.r(__webpack_exports__);
         id: 3,
         type: 'Asesor'
       }],
+      events: [],
       validateFlag: true,
       errors: {}
     };
@@ -41445,7 +41465,7 @@ var render = function() {
                           : _vm._e()
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "form-group col-md-12" }, [
+                      _c("div", { staticClass: "form-group col-md-6" }, [
                         _vm._m(4),
                         _vm._v(" "),
                         _c(
@@ -41507,6 +41527,76 @@ var render = function() {
                               staticClass: "form-control-feedback",
                               domProps: {
                                 textContent: _vm._s(_vm.errors.type[0])
+                              }
+                            })
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group col-md-6" }, [
+                        _vm._m(5),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.event,
+                                expression: "form.event"
+                              }
+                            ],
+                            staticClass: "form-control custom-select",
+                            attrs: { id: "participant_event", name: "event" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form,
+                                  "event",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          _vm._l(_vm.events, function(event) {
+                            return _c(
+                              "option",
+                              {
+                                key: event.id,
+                                domProps: {
+                                  value: {
+                                    id: event.id,
+                                    name: event.event_name
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n\t\t\t\t\t\t\t\t\t\t\t\t" +
+                                    _vm._s(event.event_name) +
+                                    "\n\t\t\t\t\t\t\t\t\t\t\t"
+                                )
+                              ]
+                            )
+                          }),
+                          0
+                        ),
+                        _vm._v(" "),
+                        _vm.errors.event
+                          ? _c("small", {
+                              staticClass: "form-control-feedback",
+                              domProps: {
+                                textContent: _vm._s(_vm.errors.event[0])
                               }
                             })
                           : _vm._e()
@@ -41620,7 +41710,7 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(5)
+                  _vm._m(6)
                 ]
               )
             ])
@@ -41673,6 +41763,15 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { attrs: { for: "participant_type" } }, [
       _vm._v("Tipo "),
+      _c("span", { staticClass: "required-color" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "participant_event" } }, [
+      _vm._v("Evento "),
       _c("span", { staticClass: "required-color" }, [_vm._v("*")])
     ])
   },

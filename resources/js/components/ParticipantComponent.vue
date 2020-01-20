@@ -96,6 +96,13 @@ export default {
 						.catch( error => {
 							console.log(error.response);
 						});
+			axios.get('/events/')
+						.then( response => {
+								self.events = response.data.events;
+						})
+						.catch( error => {
+							console.log(error.response);
+						});
     },
     data(){
 			return{
@@ -104,11 +111,13 @@ export default {
 				modalTitle: '',
 				participantId: null,
 				participant: {},
+				events: [],
 				form: {
 					name: null,
 					lastname: null,
 					email: null,
 					type: {},
+					event: {},
 					id_number: null,
 					address: null,
 					phone: null,
@@ -128,6 +137,7 @@ export default {
 						lastname: null,
 						email: null,
 						type: {},
+						event: {},
 						id_number: null,
 						address: null,
 						phone: null,

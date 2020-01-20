@@ -7,6 +7,7 @@
  */
 namespace App\Repositories;
 use App\Models\Participant;
+use App\Models\ParticipantList;
 use App\Models\UserType;
 use Illuminate\Support\Facades\DB;
 
@@ -36,5 +37,13 @@ class ParticipantRepository
         $response = Participant::findOrFail($participant_id);
 
         return $response;
+    }
+
+    public function addEvent($participant_id, $event_id)
+    {
+        return ParticipantList::create([
+            'participant_id' => $participant_id, 
+            'event_id' => $event_id
+        ]);
     }
 }
