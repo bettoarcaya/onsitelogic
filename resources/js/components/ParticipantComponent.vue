@@ -39,6 +39,16 @@
 												autocomplete="off"
 												v-model="search">
 										</div>
+										<div class="col-md-2">
+											<select id="sort_by" class="form-control custom-select" v-model="sortBy" name="sort">
+												<option
+													v-for="sortOption in sortOptions"
+													:key="sortOption.id"
+													:value="{id: sortOption.id, name: sortOption.name}">
+													{{ sortOption.name }}
+												</option>
+											</select>
+										</div>
 									</div>
 								</form>
 							</div>
@@ -145,6 +155,10 @@ export default {
 					{id: 'email', name: 'Email'},
 					{id: 'id_number', name: 'ID Number'},
 					{id: 'event_name', name: 'Event name'},
+				],
+				sortOptions: [
+					{id: 1, name: 'Assistance'},
+					{id: 2, name: 'No-Assistance'},
 				],
 				modalTitle: '',
 				participantId: null,

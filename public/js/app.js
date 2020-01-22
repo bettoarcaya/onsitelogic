@@ -2079,6 +2079,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   beforeMount: function beforeMount() {
     var self = this;
@@ -2115,6 +2125,13 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         id: 'event_name',
         name: 'Event name'
+      }],
+      sortOptions: [{
+        id: 1,
+        name: 'Assistance'
+      }, {
+        id: 2,
+        name: 'No-Assistance'
       }],
       modalTitle: '',
       participantId: null,
@@ -41160,6 +41177,62 @@ var render = function() {
                               }
                             }
                           })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-2" }, [
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.sortBy,
+                                  expression: "sortBy"
+                                }
+                              ],
+                              staticClass: "form-control custom-select",
+                              attrs: { id: "sort_by", name: "sort" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.sortBy = $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                }
+                              }
+                            },
+                            _vm._l(_vm.sortOptions, function(sortOption) {
+                              return _c(
+                                "option",
+                                {
+                                  key: sortOption.id,
+                                  domProps: {
+                                    value: {
+                                      id: sortOption.id,
+                                      name: sortOption.name
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n\t\t\t\t\t\t\t\t\t\t\t\t" +
+                                      _vm._s(sortOption.name) +
+                                      "\n\t\t\t\t\t\t\t\t\t\t\t"
+                                  )
+                                ]
+                              )
+                            }),
+                            0
+                          )
                         ])
                       ])
                     ]
