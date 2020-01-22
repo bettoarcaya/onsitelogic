@@ -189,7 +189,6 @@ export default {
 				let self = this;
 				axios.get('/participants/')
 							.then( response => {
-									console.log( response.data.participants );
 									self.participantList = response.data.participants.data;
 									self.pagInformation = response.data.participants;
 							})
@@ -203,7 +202,6 @@ export default {
 				axios.get(`/participants/${this.participantId}`)
 						.then( response => {
 							this.participant = response.data.participant;
-							console.log(response);
 						})
 						.catch( error => {
 							console.log(error.response);
@@ -226,8 +224,36 @@ export default {
 					});
 			},
 			deleteUser(){
-				
-			}
+				let self = this;
+				axios.delete(`/participants/${this.participantId}`)
+					.then( response => {
+						this.message('success', 'Participant successfully removed');
+						self.participantList = response.data.participants.data;
+						self.pagInformation = response.data.participants;
+					})
+					.catch(error => {
+						console.log(error)
+						this.message('error', 'Something is wrong, please try again');
+					});
+			},
+			message(status, msg){
+        const Swal = require('sweetalert2');
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            onOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+        Toast.fire({
+            icon: status,
+            title: msg
+        });
+      }
     }
 }
 </script>

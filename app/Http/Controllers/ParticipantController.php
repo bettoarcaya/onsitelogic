@@ -161,6 +161,11 @@ class ParticipantController extends Controller
      */
     public function destroy($id)
     {
-        return response()->json(200);
+        $deleted = $this->participant_repository->delete($id);
+        $participants = $this->participant_repository->getAll();
+
+        $data = compact('deleted', 'participants');
+
+        return response()->json($data, 200);
     }
 }

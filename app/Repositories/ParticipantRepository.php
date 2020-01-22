@@ -80,4 +80,13 @@ class ParticipantRepository
 
         return $response;
     }
+
+    public function delete($participant_id)
+    {
+        $participant = Participant::findOrFail($participant_id);
+        $participant->delete();
+
+        return $participant;
+    }
+
 }

@@ -2158,7 +2158,6 @@ __webpack_require__.r(__webpack_exports__);
     submitParticipant: function submitParticipant(data) {
       var self = this;
       axios.get('/participants/').then(function (response) {
-        console.log(response.data.participants);
         self.participantList = response.data.participants.data;
         self.pagInformation = response.data.participants;
       })["catch"](function (error) {
@@ -2172,7 +2171,6 @@ __webpack_require__.r(__webpack_exports__);
       this.participantId = participant_id;
       axios.get("/participants/".concat(this.participantId)).then(function (response) {
         _this.participant = response.data.participant;
-        console.log(response);
       })["catch"](function (error) {
         console.log(error.response);
       });
@@ -2191,7 +2189,40 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
-    deleteUser: function deleteUser() {}
+    deleteUser: function deleteUser() {
+      var _this2 = this;
+
+      var self = this;
+      axios["delete"]("/participants/".concat(this.participantId)).then(function (response) {
+        _this2.message('success', 'Participant successfully removed');
+
+        self.participantList = response.data.participants.data;
+        self.pagInformation = response.data.participants;
+      })["catch"](function (error) {
+        console.log(error);
+
+        _this2.message('error', 'Something is wrong, please try again');
+      });
+    },
+    message: function message(status, msg) {
+      var Swal = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+
+      var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        onOpen: function onOpen(toast) {
+          toast.addEventListener('mouseenter', Swal.stopTimer);
+          toast.addEventListener('mouseleave', Swal.resumeTimer);
+        }
+      });
+      Toast.fire({
+        icon: status,
+        title: msg
+      });
+    }
   }
 });
 
