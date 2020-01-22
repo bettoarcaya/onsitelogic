@@ -2,70 +2,96 @@
 	<div>
 		<div class="container">
 			<div class="row justify-content-center">
-					<div class="col-md-12">
-							<div class="card">
-									<div class="card-header bg-orange color-white">
-											<h4 class="float-left">Lista de asistentes</h4>
-											<a
-													class="btn btn-light float-right"
-													href="javascript:void(0)"
-													data-toggle="modal"
-              						data-target="#parcipant-modal"
-													@click="showForm(null)">
-													Agregar
-											</a>
-									</div>
-									<div class="card-body">
-										<div v-if="participantList.length == 0">
-											<h5 class="color-orange"> No se encontraron participantes </h5>
-										</div>
-										<div v-else>
-											<table class="table table-hover table-striped">
-												<thead>
-													<tr class="vue-color">
-														<th>Nombre</th>
-														<th>Apellido</th>
-														<th>Email</th>
-														<th>Cedula</th>
-														<th>ParticipantID</th>
-														<th>Evento</th>
-														<th>Asistencia</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr v-for="participant in participantList" :key="participant.id" @click="showParticipant(participant.id)">
-														<td>{{participant.name}}</td>
-														<td>{{participant.lastname}}</td>
-														<td>{{participant.email}}</td>
-														<td>{{participant.id_number}}</td>
-														<td>{{participant.participant_id}}</td>
-														<td>{{participant.event_name}}</td>
-														<td>{{participant.assistance}}</td>
-														<!--<td width="10px">
-															<a
-																href="javascript:void(0)"
-																class="btn btn-sm">
-																<img
-																	class="w-20-px"
-																	:src="'/assets/icons/eye-solid.svg'">
-															</a>
-														</td>
-														<td width="10px">
-															<a
-																href="javascript:void(0)"
-																class="btn btn-sm">
-																<img
-																	class="w-20-px"
-																	:src="'/assets/icons/edit-solid.svg'">
-															</a>
-														</td>-->
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header bg-orange color-white">
+								<h4 class="float-left">Lista de asistentes</h4>
+								<a
+										class="btn btn-light float-right"
+										href="javascript:void(0)"
+										data-toggle="modal"
+										data-target="#parcipant-modal"
+										@click="showForm(null)">
+										Agregar
+								</a>
+						</div>
+						<div class="card-body">
+							<div v-if="participantList.length == 0">
+								<h5 class="color-orange"> No se encontraron participantes </h5>
 							</div>
+							<div v-else>
+								<div class="search-box">
+									<form method="post" @submit.prevent="submitSearch">
+										<div class="row">
+											<div class="col-md-2">
+												<select id="filter_by" class="form-control custom-select" v-model="filterBy" name="filter">
+													<option value="filter by" disabled selected>Filter By</option>
+													<option
+														v-for="option in options"
+														:key="option.id"
+														:value="{id: option.id, name: option.name}">
+														{{ option.name }}
+													</option>
+												</select>
+											</div>
+											<div class="col-md-8">
+												<input
+													type="text"
+													class="form-control"
+													placeholder="Search participant"
+													name="search"
+													autocomplete="off"
+													v-model="search">
+											</div>
+										</div>
+									</form>
+								</div>
+								<table class="table table-hover table-striped">
+									<thead>
+										<tr class="vue-color">
+											<th>Nombre</th>
+											<th>Apellido</th>
+											<th>Email</th>
+											<th>Cedula</th>
+											<th>ParticipantID</th>
+											<th>Evento</th>
+											<th>Asistencia</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr v-for="participant in participantList" :key="participant.id" @click="showParticipant(participant.id)">
+											<td>{{participant.name}}</td>
+											<td>{{participant.lastname}}</td>
+											<td>{{participant.email}}</td>
+											<td>{{participant.id_number}}</td>
+											<td>{{participant.participant_id}}</td>
+											<td>{{participant.event_name}}</td>
+											<td>{{participant.assistance}}</td>
+											<!--<td width="10px">
+												<a
+													href="javascript:void(0)"
+													class="btn btn-sm">
+													<img
+														class="w-20-px"
+														:src="'/assets/icons/eye-solid.svg'">
+												</a>
+											</td>
+											<td width="10px">
+												<a
+													href="javascript:void(0)"
+													class="btn btn-sm">
+													<img
+														class="w-20-px"
+														:src="'/assets/icons/edit-solid.svg'">
+												</a>
+											</td>-->
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
 					</div>
+				</div>
 			</div>
 		</div>
 
@@ -110,6 +136,15 @@ export default {
 			return{
 				participantList: [],
 				pagInformation: {},
+				filterBy: {},
+				search: '',
+				options: [
+					{id: 'name', name: 'Name'},
+					{id: 'lastname', name: 'Lastname'},
+					{id: 'email', name: 'Email'},
+					{id: 'id_number', name: 'ID Number'},
+					{id: 'event_name', name: 'Event name'},
+				],
 				modalTitle: '',
 				participantId: null,
 				participant: {},
@@ -173,6 +208,9 @@ export default {
 							console.log(error.response);
 						});
 				$('#data-modal').modal('show');
+			},
+			submitSearch(){
+				alert('submiting');
 			}
     }
 }

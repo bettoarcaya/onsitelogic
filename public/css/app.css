@@ -11393,3 +11393,7 @@ a.text-dark:focus {
   color: red;
 }
 
+.search-box {
+  margin-bottom: 20px;
+}
+
