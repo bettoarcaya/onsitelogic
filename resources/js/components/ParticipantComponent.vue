@@ -5,14 +5,14 @@
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header bg-orange color-white">
-								<h4 class="float-left">Lista de asistentes</h4>
+								<h4 class="float-left">Assistance list</h4>
 								<a
 										class="btn btn-light float-right"
 										href="javascript:void(0)"
 										data-toggle="modal"
 										data-target="#parcipant-modal"
 										@click="showForm(null)">
-										Agregar
+										Add
 								</a>
 						</div>
 						<div class="card-body">
@@ -43,19 +43,19 @@
 								</form>
 							</div>
 							<div v-if="participantList.length == 0">
-								<h5 class="color-orange"> No se encontraron participantes </h5>
+								<h5 class="color-orange"> There are not participants</h5>
 							</div>
 							<div v-else>
 								<table class="table table-hover table-striped">
 									<thead>
 										<tr class="vue-color">
-											<th>Nombre</th>
-											<th>Apellido</th>
+											<th>Name</th>
+											<th>Lastname</th>
 											<th>Email</th>
-											<th>Cedula</th>
+											<th>ID number</th>
 											<th>ParticipantID</th>
-											<th>Evento</th>
-											<th>Asistencia</th>
+											<th>Event</th>
+											<th>Assistance</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -167,7 +167,7 @@ export default {
     methods: {
 			showForm(id){
 				if( id ){
-					this.modalTitle = 'Editar Paticipante';
+					this.modalTitle = 'Edit Participant';
 					this.form = this.participant;
 				}else{
 					this.form = {
@@ -182,7 +182,7 @@ export default {
 						phone: null,
 						born_date: null
 					}
-					this.modalTitle = 'Agregar Paticipante';
+					this.modalTitle = 'Add Participant';
 				}
 			},
 			submitParticipant(data){

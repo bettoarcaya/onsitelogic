@@ -11,7 +11,7 @@
 				<div class="modal-content">
 					<div class="">
 						<div class="modal-header bg-orange">
-							<h5 class="modal-title color-white">Datos del parcipante</h5>
+							<h5 class="modal-title color-white">Participant data</h5>
 							<button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true"><img :src="'/assets/icons/dismiss.svg'"></span>
 							</button>
@@ -27,11 +27,11 @@
 							<div class="container">
 								<div class="row">
 									<div class="col-md-6 text-right">
-										<p><b>Nombre:</b></p>
-										<p><b>Cedula:</b></p>
-										<p><b>Direccion:</b></p>
-										<p><b>Telefono:</b></p>
-										<p><b>Fecha de nacimiento:</b></p>
+										<p><b>Fullname:</b></p>
+										<p><b>ID number:</b></p>
+										<p><b>Address:</b></p>
+										<p><b>Phone:</b></p>
+										<p><b>Born date:</b></p>
 
 										<!--<p><b>Nombre:</b> <span class="float-right">{{`${participant.name} ${participant.lastname}`}}</span></p>
 										<p><b>Cedula:</b> <span class="float-right">{{ participant.id_number }} </span></p>

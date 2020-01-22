@@ -2137,7 +2137,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     showForm: function showForm(id) {
       if (id) {
-        this.modalTitle = 'Editar Paticipante';
+        this.modalTitle = 'Edit Participant';
         this.form = this.participant;
       } else {
         this.form = {
@@ -2152,7 +2152,7 @@ __webpack_require__.r(__webpack_exports__);
           phone: null,
           born_date: null
         };
-        this.modalTitle = 'Agregar Paticipante';
+        this.modalTitle = 'Add Participant';
       }
     },
     submitParticipant: function submitParticipant(data) {
@@ -2522,7 +2522,7 @@ __webpack_require__.r(__webpack_exports__);
 
         if (!this.form.id) {
           axios.post('/participants/', this.form).then(function (response) {
-            _this.message('success', 'Usuario guardado satisfactoriamente');
+            _this.message('success', 'User saved successfully');
 
             _this.$emit('submit', {});
           })["catch"](function (error) {
@@ -2530,11 +2530,11 @@ __webpack_require__.r(__webpack_exports__);
               self.errors = error.response.data.errors;
             }
 
-            _this.message('error', 'Ha ocurrido un error por favor intente nuevamente');
+            _this.message('error', 'Something is wrong please try again');
           });
         } else {
           axios.put("/participants/".concat(this.form.id), this.form).then(function (response) {
-            _this.message('success', 'Usuario guardado satisfactoriamente');
+            _this.message('success', 'User saved successfully');
 
             _this.$emit('submit', {});
           })["catch"](function (error) {
@@ -2542,11 +2542,11 @@ __webpack_require__.r(__webpack_exports__);
               self.errors = error.response.data.errors;
             }
 
-            _this.message('error', 'Ha ocurrido un error por favor intente nuevamente');
+            _this.message('error', 'Something is wrong please try again');
           });
         }
       } else {
-        this.message('error', 'Existen campos requeridos que no han sido completados');
+        this.message('error', 'There are empty required fields');
       }
     },
     validateForm: function validateForm() {
@@ -41026,7 +41026,7 @@ var render = function() {
             _c("div", { staticClass: "card" }, [
               _c("div", { staticClass: "card-header bg-orange color-white" }, [
                 _c("h4", { staticClass: "float-left" }, [
-                  _vm._v("Lista de asistentes")
+                  _vm._v("Assistance list")
                 ]),
                 _vm._v(" "),
                 _c(
@@ -41044,7 +41044,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("\n\t\t\t\t\t\t\t\t\tAgregar\n\t\t\t\t\t\t\t")]
+                  [_vm._v("\n\t\t\t\t\t\t\t\t\tAdd\n\t\t\t\t\t\t\t")]
                 )
               ]),
               _vm._v(" "),
@@ -41169,7 +41169,7 @@ var render = function() {
                 _vm.participantList.length == 0
                   ? _c("div", [
                       _c("h5", { staticClass: "color-orange" }, [
-                        _vm._v(" No se encontraron participantes ")
+                        _vm._v(" There are not participants")
                       ])
                     ])
                   : _c("div", [
@@ -41261,19 +41261,19 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", { staticClass: "vue-color" }, [
-        _c("th", [_vm._v("Nombre")]),
+        _c("th", [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Apellido")]),
+        _c("th", [_vm._v("Lastname")]),
         _vm._v(" "),
         _c("th", [_vm._v("Email")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Cedula")]),
+        _c("th", [_vm._v("ID number")]),
         _vm._v(" "),
         _c("th", [_vm._v("ParticipantID")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Evento")]),
+        _c("th", [_vm._v("Event")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Asistencia")])
+        _c("th", [_vm._v("Assistance")])
       ])
     ])
   }
@@ -41324,7 +41324,7 @@ var render = function() {
               _c("div", {}, [
                 _c("div", { staticClass: "modal-header bg-orange" }, [
                   _c("h5", { staticClass: "modal-title color-white" }, [
-                    _vm._v("Datos del parcipante")
+                    _vm._v("Participant data")
                   ]),
                   _vm._v(" "),
                   _c(
@@ -41454,15 +41454,15 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-6 text-right" }, [
-      _c("p", [_c("b", [_vm._v("Nombre:")])]),
+      _c("p", [_c("b", [_vm._v("Fullname:")])]),
       _vm._v(" "),
-      _c("p", [_c("b", [_vm._v("Cedula:")])]),
+      _c("p", [_c("b", [_vm._v("ID number:")])]),
       _vm._v(" "),
-      _c("p", [_c("b", [_vm._v("Direccion:")])]),
+      _c("p", [_c("b", [_vm._v("Address:")])]),
       _vm._v(" "),
-      _c("p", [_c("b", [_vm._v("Telefono:")])]),
+      _c("p", [_c("b", [_vm._v("Phone:")])]),
       _vm._v(" "),
-      _c("p", [_c("b", [_vm._v("Fecha de nacimiento:")])])
+      _c("p", [_c("b", [_vm._v("Born date:")])])
     ])
   }
 ]
@@ -41868,7 +41868,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group col-md-12" }, [
                         _c("label", { attrs: { for: "client_name" } }, [
-                          _vm._v("Direccion")
+                          _vm._v("Address")
                         ]),
                         _vm._v(" "),
                         _c("input", {
@@ -41902,7 +41902,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group col-md-6" }, [
                         _c("label", { attrs: { for: "client_name" } }, [
-                          _vm._v("Telefono")
+                          _vm._v("Phone")
                         ]),
                         _vm._v(" "),
                         _c("input", {
@@ -41936,7 +41936,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group col-md-6" }, [
                         _c("label", { attrs: { for: "client_name" } }, [
-                          _vm._v("Fecha de nacimiento")
+                          _vm._v("Born date")
                         ]),
                         _vm._v(" "),
                         _c("input", {
@@ -41990,7 +41990,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { attrs: { for: "client_name" } }, [
-      _vm._v("Nombre "),
+      _vm._v("Name "),
       _c("span", { staticClass: "required-color" }, [_vm._v("*")])
     ])
   },
@@ -41999,7 +41999,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { attrs: { for: "client_name" } }, [
-      _vm._v("Apellido "),
+      _vm._v("Lastname "),
       _c("span", { staticClass: "required-color" }, [_vm._v("*")])
     ])
   },
@@ -42017,7 +42017,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { attrs: { for: "client_name" } }, [
-      _vm._v("Cedula de identidad "),
+      _vm._v("ID number "),
       _c("span", { staticClass: "required-color" }, [_vm._v("*")])
     ])
   },
@@ -42026,7 +42026,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { attrs: { for: "participant_type" } }, [
-      _vm._v("Tipo "),
+      _vm._v("Type "),
       _c("span", { staticClass: "required-color" }, [_vm._v("*")])
     ])
   },
@@ -42035,7 +42035,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", { attrs: { for: "participant_event" } }, [
-      _vm._v("Evento "),
+      _vm._v("Event "),
       _c("span", { staticClass: "required-color" }, [_vm._v("*")])
     ])
   },
@@ -42050,7 +42050,7 @@ var staticRenderFns = [
           staticClass: "btn btn-danger",
           attrs: { type: "button", "data-dismiss": "modal" }
         },
-        [_vm._v("Cancelar")]
+        [_vm._v("Cancel")]
       ),
       _vm._v(" "),
       _c(
@@ -42059,7 +42059,7 @@ var staticRenderFns = [
           staticClass: "btn bg-orange color-white",
           attrs: { type: "submit", id: "submit-btn" }
         },
-        [_vm._v("Agregar")]
+        [_vm._v("Submit")]
       )
     ])
   }

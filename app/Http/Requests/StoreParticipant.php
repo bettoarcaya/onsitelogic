@@ -35,14 +35,14 @@ class StoreParticipant extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Este campo no puede estar vacio',
-            'lastname.required' => 'Este campo no puede estar vacio',
-            'email.required' => 'Este campo no puede estar vacio',
-            'email.unique' => 'Ya se encuentra un participante con este email',
-            'email.email' => 'Debes ingresar una direccion valida',
-            'type.required' => 'Este campo no puede estar vacio',
-            'id_number.required' => 'Este campo no puede estar vacio',
-            'id_number.unique' => 'Ya se encuentra un participante con este numero de cedula',
+            'name.required' => 'This field is required',
+            'lastname.required' => 'This field is required',
+            'email.required' => 'This field is required',
+            'email.unique' => 'A user with this email already exists',
+            'email.email' => 'This is a wrong email address',
+            'type.required' => 'This field is required',
+            'id_number.required' => 'This field is required',
+            'id_number.unique' => 'A user with this number already exists',
 
         ];
     }

@@ -35,12 +35,12 @@ class UpdateParticipant extends FormRequest
     public function messages()
     {
         return [
-            'id.required' => 'Este campo no puede estar vacio',
-            'name.required' => 'Este campo no puede estar vacio',
-            'lastname.required' => 'Este campo no puede estar vacio',
-            'email.required' => 'Este campo no puede estar vacio',
-            'email.email' => 'Debes ingresar una direccion valida',
-            'id_number.required' => 'Este campo no puede estar vacio',
+            'id.required' => 'This field is required',
+            'name.required' => 'This field is required',
+            'lastname.required' => 'This field is required',
+            'email.required' => 'This field is required',
+            'email.email' => 'This is a wrong email address',
+            'id_number.required' => 'This field is required',
 
         ];
     }

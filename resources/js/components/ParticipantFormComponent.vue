@@ -19,7 +19,7 @@
 							<div class="modal-body">
 								<div class="row">
 									<div class="form-group col-md-6">
-										<label for="client_name">Nombre <span class="required-color">*</span></label>
+										<label for="client_name">Name <span class="required-color">*</span></label>
 										<input
 											type="text"
 											id="participant_name"
@@ -31,7 +31,7 @@
 											<small class="form-control-feedback" v-if="errors.name" v-text="errors.name[0]"></small>
 									</div>
 									<div class="form-group col-md-6">
-										<label for="client_name">Apellido <span class="required-color">*</span></label>
+										<label for="client_name">Lastname <span class="required-color">*</span></label>
 										<input
 											type="text"
 											id="participant_lastname"
@@ -55,7 +55,7 @@
 											<small class="form-control-feedback" v-if="errors.email" v-text="errors.email[0]"></small>
 									</div>
 									<div class="form-group col-md-6">
-										<label for="client_name">Cedula de identidad <span class="required-color">*</span></label>
+										<label for="client_name">ID number <span class="required-color">*</span></label>
 										<input
 											type="text"
 											id="participant_idnumber"
@@ -67,7 +67,7 @@
 											<small class="form-control-feedback" v-if="errors.id_number" v-text="errors.id_number[0]"></small>
 									</div>
 									<div class="form-group col-md-6" v-if="!form.id">
-										<label for="participant_type">Tipo <span class="required-color">*</span></label>
+										<label for="participant_type">Type <span class="required-color">*</span></label>
 										<select id="participant_type" class="form-control custom-select" v-model="form.type" name="type">
 											<option
 												v-for="type in types"
@@ -79,7 +79,7 @@
 										<small class="form-control-feedback" v-if="errors.type" v-text="errors.type[0]"></small>
 									</div>
 									<div class="form-group col-md-6" v-if="!form.id">
-										<label for="participant_event">Evento <span class="required-color">*</span></label>
+										<label for="participant_event">Event <span class="required-color">*</span></label>
 										<select id="participant_event" class="form-control custom-select" v-model="form.event" name="event">
 											<option
 												v-for="event in events"
@@ -91,7 +91,7 @@
 										<small class="form-control-feedback" v-if="errors.event" v-text="errors.event[0]"></small>
 									</div>
 									<div class="form-group col-md-12">
-										<label for="client_name">Direccion</label>
+										<label for="client_name">Address</label>
 										<input
 											type="text"
 											id="participant_address"
@@ -102,7 +102,7 @@
 											v-model="form.address">
 									</div>
 									<div class="form-group col-md-6">
-										<label for="client_name">Telefono</label>
+										<label for="client_name">Phone</label>
 										<input
 											type="text"
 											id="participant_phone"
@@ -113,7 +113,7 @@
 											v-model="form.phone">
 									</div>
 									<div class="form-group col-md-6">
-										<label for="client_name">Fecha de nacimiento</label>
+										<label for="client_name">Born date</label>
 										<input
 											type="date"
 											id="participant_date"
@@ -126,8 +126,8 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-              	<button type="submit" id="submit-btn" class="btn bg-orange color-white">Agregar</button>
+								<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              	<button type="submit" id="submit-btn" class="btn bg-orange color-white">Submit</button>
 							</div>
 						</form>
 					</div>
@@ -171,30 +171,30 @@ export default {
 					if( !this.form.id ){
 						axios.post('/participants/', this.form)
 								.then( response => {
-									this.message('success', 'Usuario guardado satisfactoriamente');
+									this.message('success', 'User saved successfully');
 									this.$emit('submit', {});
 								})
 								.catch( error => {
 									if( error.response.status == 422 ){
 										self.errors = error.response.data.errors
 									}
-									this.message('error', 'Ha ocurrido un error por favor intente nuevamente');
+									this.message('error', 'Something is wrong please try again');
 								});
 					}else{
 						axios.put(`/participants/${this.form.id}`, this.form)
 								.then( response => {
-									this.message('success', 'Usuario guardado satisfactoriamente');
+									this.message('success', 'User saved successfully');
 									this.$emit('submit', {});
 								})
 								.catch( error => {
 									if( error.response.status == 422 ){
 										self.errors = error.response.data.errors
 									}
-									this.message('error', 'Ha ocurrido un error por favor intente nuevamente');
+									this.message('error', 'Something is wrong please try again');
 								});
 					}
 				}else{
-					this.message('error', 'Existen campos requeridos que no han sido completados');
+					this.message('error', 'There are empty required fields');
 				}
 				
 			},
