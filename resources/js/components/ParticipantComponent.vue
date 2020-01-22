@@ -16,36 +16,36 @@
 								</a>
 						</div>
 						<div class="card-body">
+							<div class="search-box">
+								<form method="post" @submit.prevent="submitSearch">
+									<div class="row">
+										<div class="col-md-2">
+											<select id="filter_by" class="form-control custom-select" v-model="filterBy" name="filter">
+												<option value="filter by" disabled selected>Filter By</option>
+												<option
+													v-for="option in options"
+													:key="option.id"
+													:value="{id: option.id, name: option.name}">
+													{{ option.name }}
+												</option>
+											</select>
+										</div>
+										<div class="col-md-8">
+											<input
+												type="text"
+												class="form-control"
+												placeholder="Search participant"
+												name="search"
+												autocomplete="off"
+												v-model="search">
+										</div>
+									</div>
+								</form>
+							</div>
 							<div v-if="participantList.length == 0">
 								<h5 class="color-orange"> No se encontraron participantes </h5>
 							</div>
 							<div v-else>
-								<div class="search-box">
-									<form method="post" @submit.prevent="submitSearch">
-										<div class="row">
-											<div class="col-md-2">
-												<select id="filter_by" class="form-control custom-select" v-model="filterBy" name="filter">
-													<option value="filter by" disabled selected>Filter By</option>
-													<option
-														v-for="option in options"
-														:key="option.id"
-														:value="{id: option.id, name: option.name}">
-														{{ option.name }}
-													</option>
-												</select>
-											</div>
-											<div class="col-md-8">
-												<input
-													type="text"
-													class="form-control"
-													placeholder="Search participant"
-													name="search"
-													autocomplete="off"
-													v-model="search">
-											</div>
-										</div>
-									</form>
-								</div>
 								<table class="table table-hover table-striped">
 									<thead>
 										<tr class="vue-color">
@@ -210,7 +210,19 @@ export default {
 				$('#data-modal').modal('show');
 			},
 			submitSearch(){
-				alert('submiting');
+				let self = this;
+				const data = {
+					filterBy: this.filterBy,
+					search: this.search
+				};
+				axios.post('/participants/search', data)
+					.then( response => {
+						self.participantList = response.data.participants.data;
+						self.pagInformation = response.data.participants;
+					})
+					.catch( error => {
+						console.log(error);
+					});
 			}
     }
 }

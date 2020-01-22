@@ -48,6 +48,20 @@ class ParticipantController extends Controller
         return response()->json($data, 200);
     }
 
+    public function search(Request $request)
+    {
+        $query = $request['search'];
+        $field =  ( count($request['filterBy']) > 0 ) 
+               ? $request['filterBy']['id']
+               : 'name';
+        
+        $participants = $this->participant_repository->search($field, $query);
+
+        $data = compact('participants');
+        
+        return response()->json($data, 200);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

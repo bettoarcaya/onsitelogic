@@ -63,4 +63,21 @@ class ParticipantRepository
         
         return $participant;
     }
+
+    public function search($field, $query)
+    {
+        $prefield = ($field == 'event_name') ? 'events.'.$field : 'participants.'.$field;
+        $response = DB::table('participant_lists')
+                        ->select(
+                            'participants.id as participant_id', 
+                            'participants.*',
+                            'events.event_name'
+                            )
+                        ->join('participants', 'participant_lists.participant_id', '=', 'participants.id')
+                        ->join('events', 'participant_lists.event_id', '=', 'events.id')
+                        ->where($prefield, 'LIKE', '%'.$query.'%')
+                        ->paginate(10);
+
+        return $response;
+    }
 }
