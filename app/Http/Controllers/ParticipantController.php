@@ -161,6 +161,6 @@ class ParticipantController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return response()->json(200);
     }
 }

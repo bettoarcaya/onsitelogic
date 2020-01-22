@@ -106,6 +106,7 @@
 			:participantId="participantId"
 			:participant="participant"
 			v-on:load="showForm"
+			v-on:delete="deleteUser"
 		></participant-data-component>
 
 	</div>
@@ -223,6 +224,9 @@ export default {
 					.catch( error => {
 						console.log(error);
 					});
+			},
+			deleteUser(){
+				
 			}
     }
 }

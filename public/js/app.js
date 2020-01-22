@@ -2078,6 +2078,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   beforeMount: function beforeMount() {
     var self = this;
@@ -2189,7 +2190,8 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
-    }
+    },
+    deleteUser: function deleteUser() {}
   }
 });
 
@@ -2273,6 +2275,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['participantId', 'participant'],
   data: function data() {
@@ -2287,6 +2296,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     showForm: function showForm() {
       this.$emit('load', this.participantId);
+    },
+    dellUser: function dellUser() {
+      this.$emit('delete');
     }
   }
 });
@@ -41205,7 +41217,7 @@ var render = function() {
           participantId: _vm.participantId,
           participant: _vm.participant
         },
-        on: { load: _vm.showForm }
+        on: { load: _vm.showForm, delete: _vm.deleteUser }
       })
     ],
     1
@@ -41370,6 +41382,20 @@ var render = function() {
                   _c(
                     "button",
                     {
+                      staticClass: "btn btn-danger color-white",
+                      attrs: {
+                        type: "button",
+                        id: "edit-btn",
+                        "data-dismiss": "modal"
+                      },
+                      on: { click: _vm.dellUser }
+                    },
+                    [_vm._v("Delete")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
                       staticClass: "btn bg-orange color-white",
                       attrs: {
                         type: "button",
@@ -41380,7 +41406,7 @@ var render = function() {
                       },
                       on: { click: _vm.showForm }
                     },
-                    [_vm._v("Editar")]
+                    [_vm._v("Edit")]
                   )
                 ])
               ])

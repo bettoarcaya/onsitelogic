@@ -29,6 +29,7 @@ Route::group(['prefix' => 'participants', 'middleware' => 'auth'], function () {
     Route::get('/types', 'ParticipantController@participantTypes');
     Route::put('/{id}', 'ParticipantController@update');
     Route::post('/search', 'ParticipantController@search');
+    Route::delete('/{id}', 'ParticipantController@destroy');
 });
 
 Route::group(['prefix' => 'events', 'middleware' => 'auth'], function () {

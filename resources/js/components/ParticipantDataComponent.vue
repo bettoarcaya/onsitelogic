@@ -53,12 +53,19 @@
 							<button 
 								type="button" 
 								id="edit-btn" 
+								class="btn btn-danger color-white"
+								data-dismiss="modal"
+								@click="dellUser"
+							>Delete</button>
+							<button 
+								type="button" 
+								id="edit-btn" 
 								class="btn bg-orange color-white"
 								data-dismiss="modal"
 								data-toggle="modal"
 								data-target="#parcipant-modal"
 								@click="showForm"
-							>Editar</button>
+							>Edit</button>
 						</div>
 					</div>
 				</div>
@@ -82,6 +89,9 @@ export default {
 	methods: {
 		showForm(){
 			this.$emit('load', this.participantId);
+		},
+		dellUser(){
+			this.$emit('delete');
 		}
 	}
 }
