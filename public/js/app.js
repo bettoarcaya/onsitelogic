@@ -2087,8 +2087,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   beforeMount: function beforeMount() {
     var self = this;
@@ -2108,7 +2106,11 @@ __webpack_require__.r(__webpack_exports__);
     return {
       participantList: [],
       pagInformation: {},
-      filterBy: {},
+      filterBy: {
+        id: 'name',
+        name: 'Name'
+      },
+      sortBy: 'Assistance',
       search: '',
       options: [{
         id: 'name',
@@ -2220,6 +2222,35 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.message('error', 'Something is wrong, please try again');
       });
+    },
+    sort: function sort() {
+      if (this.sortBy == 'Assistance') {
+        this.participantList.sort(function (a, b) {
+          if (a.assistance < b.assistance) {
+            return 1;
+          }
+
+          if (a.assistance > b.assistance) {
+            return -1;
+          } // a must be equal to b
+
+
+          return 0;
+        });
+      } else {
+        this.participantList.sort(function (a, b) {
+          if (a.assistance > b.assistance) {
+            return 1;
+          }
+
+          if (a.assistance < b.assistance) {
+            return -1;
+          } // a must be equal to b
+
+
+          return 0;
+        });
+      }
     },
     message: function message(status, msg) {
       var Swal = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
@@ -41061,7 +41092,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("\n\t\t\t\t\t\t\t\t\tAdd\n\t\t\t\t\t\t\t")]
+                  [_vm._v("\n\t\t\t\t\t\t\t\tAdd\n\t\t\t\t\t\t\t")]
                 )
               ]),
               _vm._v(" "),
@@ -41081,6 +41112,10 @@ var render = function() {
                     [
                       _c("div", { staticClass: "row" }, [
                         _c("div", { staticClass: "col-md-2" }, [
+                          _c("label", { attrs: { for: "filter_by" } }, [
+                            _vm._v("Filter by:")
+                          ]),
+                          _vm._v(" "),
                           _c(
                             "select",
                             {
@@ -41111,75 +41146,71 @@ var render = function() {
                                 }
                               }
                             },
-                            [
-                              _c(
+                            _vm._l(_vm.options, function(option) {
+                              return _c(
                                 "option",
                                 {
-                                  attrs: {
-                                    value: "filter by",
-                                    disabled: "",
-                                    selected: ""
+                                  key: option.id,
+                                  domProps: {
+                                    value: { id: option.id, name: option.name }
                                   }
                                 },
-                                [_vm._v("Filter By")]
-                              ),
-                              _vm._v(" "),
-                              _vm._l(_vm.options, function(option) {
-                                return _c(
-                                  "option",
-                                  {
-                                    key: option.id,
-                                    domProps: {
-                                      value: {
-                                        id: option.id,
-                                        name: option.name
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n\t\t\t\t\t\t\t\t\t\t\t\t" +
-                                        _vm._s(option.name) +
-                                        "\n\t\t\t\t\t\t\t\t\t\t\t"
-                                    )
-                                  ]
-                                )
-                              })
-                            ],
-                            2
+                                [
+                                  _vm._v(
+                                    "\n\t\t\t\t\t\t\t\t\t\t\t\t" +
+                                      _vm._s(option.name) +
+                                      "\n\t\t\t\t\t\t\t\t\t\t\t"
+                                  )
+                                ]
+                              )
+                            }),
+                            0
                           )
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "col-md-8" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.search,
-                                expression: "search"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Search participant",
-                              name: "search",
-                              autocomplete: "off"
-                            },
-                            domProps: { value: _vm.search },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
+                        _c(
+                          "div",
+                          {
+                            staticClass: "col-md-8",
+                            staticStyle: { "margin-top": "7px" }
+                          },
+                          [
+                            _c("label", { attrs: { for: "" } }),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.search,
+                                  expression: "search"
                                 }
-                                _vm.search = $event.target.value
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                placeholder: "Search participant",
+                                name: "search",
+                                autocomplete: "off"
+                              },
+                              domProps: { value: _vm.search },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.search = $event.target.value
+                                }
                               }
-                            }
-                          })
-                        ]),
+                            })
+                          ]
+                        ),
                         _vm._v(" "),
                         _c("div", { staticClass: "col-md-2" }, [
+                          _c("label", { attrs: { for: "sort_by" } }, [
+                            _vm._v("Sort by:")
+                          ]),
+                          _vm._v(" "),
                           _c(
                             "select",
                             {
@@ -41194,44 +41225,36 @@ var render = function() {
                               staticClass: "form-control custom-select",
                               attrs: { id: "sort_by", name: "sort" },
                               on: {
-                                change: function($event) {
-                                  var $$selectedVal = Array.prototype.filter
-                                    .call($event.target.options, function(o) {
-                                      return o.selected
-                                    })
-                                    .map(function(o) {
-                                      var val =
-                                        "_value" in o ? o._value : o.value
-                                      return val
-                                    })
-                                  _vm.sortBy = $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
-                                }
+                                change: [
+                                  function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.sortBy = $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  },
+                                  _vm.sort
+                                ]
                               }
                             },
-                            _vm._l(_vm.sortOptions, function(sortOption) {
-                              return _c(
+                            [
+                              _c("option", { attrs: { value: "Assistance" } }, [
+                                _vm._v("Assistance")
+                              ]),
+                              _vm._v(" "),
+                              _c(
                                 "option",
-                                {
-                                  key: sortOption.id,
-                                  domProps: {
-                                    value: {
-                                      id: sortOption.id,
-                                      name: sortOption.name
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n\t\t\t\t\t\t\t\t\t\t\t\t" +
-                                      _vm._s(sortOption.name) +
-                                      "\n\t\t\t\t\t\t\t\t\t\t\t"
-                                  )
-                                ]
+                                { attrs: { value: "No-Assistance" } },
+                                [_vm._v("No-Assistance")]
                               )
-                            }),
-                            0
+                            ]
                           )
                         ])
                       ])

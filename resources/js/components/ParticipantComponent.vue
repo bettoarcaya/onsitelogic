@@ -7,12 +7,12 @@
 						<div class="card-header bg-orange color-white">
 								<h4 class="float-left">Assistance list</h4>
 								<a
-										class="btn btn-light float-right"
-										href="javascript:void(0)"
-										data-toggle="modal"
-										data-target="#parcipant-modal"
-										@click="showForm(null)">
-										Add
+									class="btn btn-light float-right"
+									href="javascript:void(0)"
+									data-toggle="modal"
+									data-target="#parcipant-modal"
+									@click="showForm(null)">
+									Add
 								</a>
 						</div>
 						<div class="card-body">
@@ -20,8 +20,8 @@
 								<form method="post" @submit.prevent="submitSearch">
 									<div class="row">
 										<div class="col-md-2">
+											<label for="filter_by">Filter by:</label>
 											<select id="filter_by" class="form-control custom-select" v-model="filterBy" name="filter">
-												<option value="filter by" disabled selected>Filter By</option>
 												<option
 													v-for="option in options"
 													:key="option.id"
@@ -30,7 +30,8 @@
 												</option>
 											</select>
 										</div>
-										<div class="col-md-8">
+										<div class="col-md-8" style="margin-top:7px;">
+											<label for=""></label>
 											<input
 												type="text"
 												class="form-control"
@@ -40,13 +41,10 @@
 												v-model="search">
 										</div>
 										<div class="col-md-2">
-											<select id="sort_by" class="form-control custom-select" v-model="sortBy" name="sort">
-												<option
-													v-for="sortOption in sortOptions"
-													:key="sortOption.id"
-													:value="{id: sortOption.id, name: sortOption.name}">
-													{{ sortOption.name }}
-												</option>
+											<label for="sort_by">Sort by:</label>
+											<select id="sort_by" class="form-control custom-select" v-model="sortBy" name="sort" @change="sort">
+												<option value="Assistance">Assistance</option>
+												<option value="No-Assistance">No-Assistance</option>
 											</select>
 										</div>
 									</div>
@@ -147,7 +145,8 @@ export default {
 			return{
 				participantList: [],
 				pagInformation: {},
-				filterBy: {},
+				filterBy: {id: 'name', name: 'Name'},
+				sortBy: 'Assistance',
 				search: '',
 				options: [
 					{id: 'name', name: 'Name'},
@@ -249,6 +248,32 @@ export default {
 						console.log(error)
 						this.message('error', 'Something is wrong, please try again');
 					});
+			},
+			sort(){
+				if( this.sortBy == 'Assistance'){
+					this.participantList.sort(function (a, b) {
+						if (a.assistance < b.assistance) {
+							return 1;
+						}
+						if (a.assistance > b.assistance) {
+							return -1;
+						}
+						// a must be equal to b
+						return 0;
+					});
+				}else{
+					this.participantList.sort(function (a, b) {
+						if (a.assistance > b.assistance) {
+							return 1;
+						}
+						if (a.assistance < b.assistance) {
+							return -1;
+						}
+						// a must be equal to b
+						return 0;
+					});
+				}
+				
 			},
 			message(status, msg){
         const Swal = require('sweetalert2');

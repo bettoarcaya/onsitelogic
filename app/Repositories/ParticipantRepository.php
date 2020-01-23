@@ -23,6 +23,7 @@ class ParticipantRepository
                             )
                         ->join('participants', 'participant_lists.participant_id', '=', 'participants.id')
                         ->join('events', 'participant_lists.event_id', '=', 'events.id')
+                        ->orderBy('participants.assistance', 'desc')
                         ->paginate(10);
 
         return $response;
