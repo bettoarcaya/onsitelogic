@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <participant-component></participant-component>
+    <participant-component
+        :lang="{{session()->get('lang')}}"
+    ></participant-component>
 @endsection

@@ -27,6 +27,7 @@ class ParticipantController extends Controller
      */
     public function index()
     {
+        session()->put('lang', 'en');
         return view('home');
     }
 

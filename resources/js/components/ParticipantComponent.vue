@@ -7,16 +7,19 @@
 						<div class="card-header bg-orange color-white">
 								<h4 class="float-left">Assistance list</h4>
 								<a
-									class="btn btn-light float-right"
+									class="float-right"
 									href="javascript:void(0)"
 									data-toggle="modal"
 									data-target="#parcipant-modal"
 									@click="showForm(null)">
-									Add
+									<img class="w-20" :src="'/assets/icons/plus-solid.svg'">
+								</a>
+								<a href="javascript:void(0)" class="float-right margin-r-20" @click="showSearch = !showSearch">
+									<img class="w-20" :src="'/assets/icons/search-solid.svg'">
 								</a>
 						</div>
 						<div class="card-body">
-							<div class="search-box">
+							<div class="search-box" v-if="showSearch">
 								<form method="post" @submit.prevent="submitSearch">
 									<div class="row">
 										<div class="col-md-2">
@@ -67,7 +70,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr v-for="participant in participantList" :key="participant.id" @click="showParticipant(participant.id)">
+										<tr v-for="participant in participantList" :key="participant.id" @click="showParticipant(participant.id)" style="cursor: pointer">
 											<td>{{participant.name}}</td>
 											<td>{{participant.lastname}}</td>
 											<td>{{participant.email}}</td>
@@ -96,6 +99,20 @@
 										</tr>
 									</tbody>
 								</table>
+								<div class="btn-group" v-if="pagInformation.total > 10">
+									<button
+										class="btn vue-color-btn btn-sm"
+										@click="prevPage"
+										v-if="pagInformation.current_page !== 1">
+										<img class="w-10" :src="'/assets/icons/chevron-left-solid.svg'">
+									</button>
+									<button
+										class="btn vue-color-btn btn-sm"
+										@click="nextPage"
+										v-if="pagInformation.current_page !== pagInformation.last_page">
+										<img class="w-10" :src="'/assets/icons/chevron-right-solid.svg'">
+									</button>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -123,6 +140,7 @@
 <script>
 
 export default {
+		props: ['lang'],
     beforeMount(){
 			let self = this;
       axios.get('/participants/')
@@ -148,6 +166,7 @@ export default {
 				filterBy: {id: 'name', name: 'Name'},
 				sortBy: 'Assistance',
 				search: '',
+				showSearch: false,
 				options: [
 					{id: 'name', name: 'Name'},
 					{id: 'lastname', name: 'Lastname'},
@@ -274,6 +293,28 @@ export default {
 					});
 				}
 				
+			},
+			prevPage(){
+				let self = this;
+        axios.get(this.pagInformation.prev_page_url)
+					.then( response => {
+						self.participantList = response.data.participants.data;
+						self.pagInformation = response.data.participants;
+					})
+					.catch( error => {
+							console.log(error.response);
+					});
+			},
+			nextPage(){
+				let self = this;
+        axios.get(this.pagInformation.next_page_url)
+					.then( response => {
+						self.participantList = response.data.participants.data;
+						self.pagInformation = response.data.participants;
+					})
+					.catch( error => {
+							console.log(error.response);
+					});
 			},
 			message(status, msg){
         const Swal = require('sweetalert2');
