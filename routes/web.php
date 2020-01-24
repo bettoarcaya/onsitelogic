@@ -15,8 +15,6 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-
-
 Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function(){
     Route::get('participants', 'ParticipantController@index')->name('participants');
     

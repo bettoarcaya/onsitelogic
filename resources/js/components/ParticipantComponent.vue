@@ -140,7 +140,6 @@
 <script>
 
 export default {
-		props: ['lang'],
     beforeMount(){
 			let self = this;
       axios.get('/participants/')
